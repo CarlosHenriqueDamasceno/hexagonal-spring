@@ -1,4 +1,4 @@
-package hexagonal.user;
+package hexagonal.user.entity;
 
 import hexagonal.adapters.EncryptorAdapter;
 
