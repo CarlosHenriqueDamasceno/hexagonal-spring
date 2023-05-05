@@ -1,5 +1,7 @@
 package hexagonal.user;
 
+import hexagonal.adapters.EncryptorAdapter;
+
 public class User {
     private Long id;
     private String name;
@@ -7,12 +9,32 @@ public class User {
     private String email;
     private Password password;
 
-    public User(Long id, String name, String username, String email, Password password) {
+    private User(Long id, String name, String username, String email, Password password) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public static User buildNonExistentUser(
+            String name,
+            String username,
+            String email,
+            String nonEncryptedPassword,
+            EncryptorAdapter encryptorAdapter
+    ) {
+        return new User(
+                null,
+                name,
+                username,
+                email,
+                Password.generateEncrypted(nonEncryptedPassword, encryptorAdapter)
+        );
+    }
+
+    public static User buildExistentUser(Long id, String name, String username, String email, String password) {
+        return new User(id, name, username, email, new Password(password));
     }
 
     public Long getId() {
