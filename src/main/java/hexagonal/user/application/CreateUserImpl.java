@@ -14,7 +14,7 @@ public class CreateUserImpl implements CreateUser {
     }
 
     @Override
-    public void execute(UserInput data) {
+    public Long execute(UserInput data) {
         User user = User.buildNonExistentUser(
                 data.name(),
                 data.username(),
@@ -22,6 +22,6 @@ public class CreateUserImpl implements CreateUser {
                 data.password(),
                 encryptorAdapter
         );
-        repo.create(user);
+        return repo.create(user);
     }
 }

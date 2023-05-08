@@ -3,6 +3,8 @@ package hexagonal.user.entity;
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
 
+import java.util.Objects;
+
 public class User {
     private final Long id;
     private final String name;
@@ -60,4 +62,22 @@ public class User {
         return password;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(
+                name,
+                user.name
+        ) && Objects.equals(username, user.username) && Objects.equals(
+                email,
+                user.email
+        ) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, username, email, password);
+    }
 }
