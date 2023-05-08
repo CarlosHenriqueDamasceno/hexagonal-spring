@@ -1,6 +1,7 @@
 package hexagonal.user;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.CreateUser;
 import hexagonal.user.application.CreateUserImpl;
 import hexagonal.user.application.UserRepository;
@@ -48,5 +49,22 @@ public class UserApplicationTest {
         var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
         var id = createUser.execute(input);
         Assertions.assertEquals(1L, id);
+    }
+
+    @Test
+    void shouldNotCreateAUserBecauseInvalidData() {
+
+        var input = new CreateUser.UserInput(
+                "Carlos",
+                "carlos",
+                "carlos@teste.com",
+                "12345"
+        );
+
+        var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
+        var exception = Assertions.assertThrows(BusinessException.class, () -> {
+            createUser.execute(input);
+        });
+        Assertions.assertEquals("A senha deve conter pelo menos 8 caracteres", exception.getMessage());
     }
 }
