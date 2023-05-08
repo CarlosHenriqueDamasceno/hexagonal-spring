@@ -1,7 +1,9 @@
-package hexagonal.user.entity;
+package hexagonal.user.domain;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.user.domain.valueObject.Email;
+import hexagonal.user.domain.valueObject.Password;
 
 import java.util.Objects;
 

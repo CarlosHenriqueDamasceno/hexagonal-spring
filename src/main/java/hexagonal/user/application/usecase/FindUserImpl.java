@@ -2,7 +2,7 @@ package hexagonal.user.application.usecase;
 
 import hexagonal.user.application.UserRepository;
 import hexagonal.user.application.usecase.contract.FindUser;
-import hexagonal.user.entity.User;
+import hexagonal.user.domain.User;
 
 public class FindUserImpl implements FindUser {
     private final UserRepository repo;

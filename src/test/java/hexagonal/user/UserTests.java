@@ -2,7 +2,7 @@ package hexagonal.user;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.user.entity.User;
+import hexagonal.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

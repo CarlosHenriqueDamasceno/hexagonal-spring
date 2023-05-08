@@ -1,7 +1,7 @@
 package hexagonal.user.utils;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
-import hexagonal.user.entity.User;
+import hexagonal.user.domain.User;
 import org.mockito.Mock;
 
 public class UserTestUtils {

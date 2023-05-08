@@ -6,7 +6,7 @@ import hexagonal.user.application.UserRepository;
 import hexagonal.user.application.usecase.CreateUserImpl;
 import hexagonal.user.application.usecase.FindUserImpl;
 import hexagonal.user.application.usecase.contract.CreateUser;
-import hexagonal.user.entity.User;
+import hexagonal.user.domain.User;
 import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
