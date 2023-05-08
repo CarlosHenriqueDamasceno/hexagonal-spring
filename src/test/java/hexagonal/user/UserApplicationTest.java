@@ -5,7 +5,9 @@ import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.UserRepository;
 import hexagonal.user.application.usecase.CreateUserImpl;
 import hexagonal.user.application.usecase.FindUserImpl;
+import hexagonal.user.application.usecase.UpdateUserImpl;
 import hexagonal.user.application.usecase.contract.CreateUser;
+import hexagonal.user.application.usecase.contract.UpdateUser;
 import hexagonal.user.domain.User;
 import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Assertions;
@@ -30,14 +32,16 @@ public class UserApplicationTest {
     @Test
     void shouldCreateAUser() {
 
-        Mockito.when(mockEncryptor.encrypt("12345678"))
-                .thenReturn("7c222fb2927d828af22f592134e8932480637c0d");
+        Mockito.when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
+                .thenReturn(UserTestUtils.rightPasswordEncrypted);
+
+        Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
+                .thenReturn(null);
 
         var user = User.buildNonExistentUser(
                 "Carlos",
-                "carlos",
-                "carlos@teste.com",
-                "12345678",
+                UserTestUtils.validEmail,
+                UserTestUtils.rightPassword,
                 mockEncryptor
         );
 
@@ -46,9 +50,8 @@ public class UserApplicationTest {
 
         var input = new CreateUser.UserInput(
                 "Carlos",
-                "carlos",
-                "carlos@teste.com",
-                "12345678"
+                UserTestUtils.validEmail,
+                UserTestUtils.rightPassword
         );
 
         var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
@@ -57,18 +60,20 @@ public class UserApplicationTest {
     }
 
     @Test
-    void shouldNotCreateAUserBecauseInvalidData() {
+    void shouldNotCreateAUserBecauseInvalidEmail() {
+
+        Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
+                .thenReturn(UserTestUtils.existentUser);
 
         var input = new CreateUser.UserInput(
                 "Carlos",
-                "carlos",
-                "carlos@teste.com",
-                "12345"
+                UserTestUtils.validEmail,
+                UserTestUtils.rightPassword
         );
 
         var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
         var exception = Assertions.assertThrows(BusinessException.class, () -> createUser.execute(input));
-        assertEquals("A senha deve conter pelo menos 8 caracteres", exception.getMessage());
+        assertEquals("O email enviado já está em uso por outro usuário.", exception.getMessage());
     }
 
     @Test
@@ -93,5 +98,20 @@ public class UserApplicationTest {
         var findUser = new FindUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> findUser.execute(2L));
         assertInstanceOf(BusinessException.class, exception);
+    }
+
+    @Test
+    void shouldUpdateAUser() {
+
+        Mockito.when(mockUserRepository.find(1L))
+                .thenReturn(UserTestUtils.existentUser);
+
+        var input = new UpdateUser.UpdateUserInput(
+                "Carlos editado",
+                UserTestUtils.editedEmail
+        );
+        var updateUser = new UpdateUserImpl(mockUserRepository);
+        var result = updateUser.execute(1L, input);
+        assertEquals(result, UserTestUtils.updatedUser);
     }
 }

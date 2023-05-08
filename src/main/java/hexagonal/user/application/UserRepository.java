@@ -6,4 +6,9 @@ public interface UserRepository {
     Long create(User user);
 
     User find(Long id);
+
+    void update(User user);
+
+    User findByEmail(String email);
+
 }

@@ -10,21 +10,18 @@ import java.util.Objects;
 public class User {
     private final Long id;
     private final String name;
-    private final String username;
     private final Email email;
     private final Password password;
 
-    private User(Long id, String name, String username, Email email, Password password) {
+    private User(Long id, String name, Email email, Password password) {
         this.id = id;
         this.name = name;
-        this.username = username;
         this.email = email;
         this.password = password;
     }
 
     public static User buildNonExistentUser(
             String name,
-            String username,
             String email,
             String nonEncryptedPassword,
             EncryptorAdapter encryptorAdapter
@@ -32,16 +29,15 @@ public class User {
         return new User(
                 null,
                 name,
-                username,
                 new Email(email),
                 Password.generateEncrypted(nonEncryptedPassword, encryptorAdapter)
         );
     }
 
-    public static User buildExistentUser(Long id, String name, String username, String email, String password) {
+    public static User buildExistentUser(Long id, String name, String email, String password) {
         if (id == null)
             throw new BusinessException("O usuário deve conter um id válido");
-        return new User(id, name, username, new Email(email), new Password(password));
+        return new User(id, name, new Email(email), new Password(password));
     }
 
     public Long getId() {
@@ -50,10 +46,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public Email getEmail() {
@@ -72,7 +64,7 @@ public class User {
         return Objects.equals(id, user.id) && Objects.equals(
                 name,
                 user.name
-        ) && Objects.equals(username, user.username) && Objects.equals(
+        ) && Objects.equals(
                 email,
                 user.email
         ) && Objects.equals(password, user.password);
@@ -80,6 +72,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, username, email, password);
+        return Objects.hash(id, name, email, password);
     }
 }

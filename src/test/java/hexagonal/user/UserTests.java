@@ -3,6 +3,7 @@ package hexagonal.user;
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.domain.User;
+import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -21,17 +22,16 @@ public class UserTests {
     @Test
     void shouldInstantiateANewUser() {
 
-        Mockito.when(mockEncryptor.encrypt("12345678"))
-                .thenReturn("7c222fb2927d828af22f592134e8932480637c0d"); // encrypted with sha1
+        Mockito.when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
+                .thenReturn(UserTestUtils.rightPasswordEncrypted); // encrypted with sha1
 
         User user = User.buildNonExistentUser(
                 "Carlos",
-                "carlos",
-                "carlos@teste.com",
-                "12345678",
+                UserTestUtils.validEmail,
+                UserTestUtils.rightPassword,
                 mockEncryptor
         );
-        assertEquals("7c222fb2927d828af22f592134e8932480637c0d", user.getPassword().value());
+        assertEquals(UserTestUtils.rightPasswordEncrypted, user.getPassword().value());
     }
 
     @Test
@@ -39,9 +39,8 @@ public class UserTests {
         var exception = assertThrows(BusinessException.class, () -> {
                     User.buildNonExistentUser(
                             "Carlos",
-                            "carlos",
-                            "carlos@teste.com",
-                            "123456",
+                            UserTestUtils.validEmail,
+                            UserTestUtils.invalidPassword,
                             mockEncryptor
                     );
                 }
@@ -54,9 +53,8 @@ public class UserTests {
         var exception = assertThrows(BusinessException.class, () -> {
                     User.buildNonExistentUser(
                             "Carlos",
-                            "carlos",
-                            "carlos@teste",
-                            "12345678",
+                            UserTestUtils.invalidEmail,
+                            UserTestUtils.rightPassword,
                             mockEncryptor
                     );
                 }
@@ -70,9 +68,8 @@ public class UserTests {
         var user = User.buildExistentUser(
                 1L,
                 "Carlos",
-                "carlos",
-                "carlos@teste.com",
-                "123456"
+                UserTestUtils.validEmail,
+                UserTestUtils.invalidPassword
         );
 
         assertEquals(1L, user.getId());
@@ -84,9 +81,8 @@ public class UserTests {
                     User.buildExistentUser(
                             null,
                             "Carlos",
-                            "carlos",
-                            "carlos@teste.com",
-                            "123456"
+                            UserTestUtils.validEmail,
+                            UserTestUtils.invalidPassword
                     );
                 }
         );
