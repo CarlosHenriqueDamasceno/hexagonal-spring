@@ -1,6 +1,8 @@
-package hexagonal.user.application;
+package hexagonal.user.application.usecase;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.user.application.UserRepository;
+import hexagonal.user.application.usecase.contract.CreateUser;
 import hexagonal.user.entity.User;
 
 public class CreateUserImpl implements CreateUser {

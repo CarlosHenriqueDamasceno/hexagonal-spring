@@ -1,4 +1,4 @@
-package hexagonal.user.application;
+package hexagonal.user.application.usecase.contract;
 
 import hexagonal.user.entity.User;
 

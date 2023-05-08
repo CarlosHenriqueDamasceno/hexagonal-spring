@@ -2,10 +2,10 @@ package hexagonal.user;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.user.application.CreateUser;
-import hexagonal.user.application.CreateUserImpl;
-import hexagonal.user.application.FindUserImpl;
 import hexagonal.user.application.UserRepository;
+import hexagonal.user.application.usecase.CreateUserImpl;
+import hexagonal.user.application.usecase.FindUserImpl;
+import hexagonal.user.application.usecase.contract.CreateUser;
 import hexagonal.user.entity.User;
 import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Assertions;
