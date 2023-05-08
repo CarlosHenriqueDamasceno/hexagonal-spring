@@ -64,4 +64,32 @@ public class UserTests {
 
         assertEquals("Email inválido", exception.getMessage());
     }
+
+    @Test
+    void shouldInstantiateAExistentUser() {
+        var user = User.buildExistentUser(
+                1L,
+                "Carlos",
+                "carlos",
+                "carlos@teste.com",
+                "123456"
+        );
+
+        assertEquals(1L, user.getId());
+    }
+
+    @Test
+    void shouldNotInstantiateAExistentUserBecauseInvalidId() {
+        var exception = assertThrows(BusinessException.class, () -> {
+                    User.buildExistentUser(
+                            null,
+                            "Carlos",
+                            "carlos",
+                            "carlos@teste.com",
+                            "123456"
+                    );
+                }
+        );
+        assertEquals("O usuário deve conter um id válido", exception.getMessage());
+    }
 }

@@ -1,6 +1,7 @@
 package hexagonal.user.entity;
 
 import hexagonal.adapters.EncryptorAdapter;
+import hexagonal.exceptions.BusinessException;
 
 public class User {
     private final Long id;
@@ -34,6 +35,8 @@ public class User {
     }
 
     public static User buildExistentUser(Long id, String name, String username, String email, String password) {
+        if (id == null)
+            throw new BusinessException("O usuário deve conter um id válido");
         return new User(id, name, username, new Email(email), new Password(password));
     }
 
