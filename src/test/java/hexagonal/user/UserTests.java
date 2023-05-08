@@ -1,4 +1,4 @@
-package hexagonal.application;
+package hexagonal.user;
 
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
