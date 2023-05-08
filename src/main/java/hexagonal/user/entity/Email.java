@@ -1,6 +1,6 @@
 package hexagonal.user.entity;
 
-import hexagonal.exceptions.BusinessException;
+import hexagonal.shared.exceptions.BusinessException;
 
 public final class Email {
     private final String value;

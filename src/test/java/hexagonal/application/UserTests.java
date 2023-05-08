@@ -1,7 +1,7 @@
 package hexagonal.application;
 
-import hexagonal.adapters.EncryptorAdapter;
-import hexagonal.exceptions.BusinessException;
+import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

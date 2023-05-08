@@ -1,7 +1,7 @@
 package hexagonal.user.entity;
 
-import hexagonal.adapters.EncryptorAdapter;
-import hexagonal.exceptions.BusinessException;
+import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.shared.exceptions.BusinessException;
 
 public record Password(String value) {
     public static Password generateEncrypted(String password, EncryptorAdapter encriptAdapter)

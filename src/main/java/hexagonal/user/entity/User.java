@@ -1,7 +1,7 @@
 package hexagonal.user.entity;
 
-import hexagonal.adapters.EncryptorAdapter;
-import hexagonal.exceptions.BusinessException;
+import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.shared.exceptions.BusinessException;
 
 public class User {
     private final Long id;
