@@ -4,14 +4,19 @@ import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.CreateUser;
 import hexagonal.user.application.CreateUserImpl;
+import hexagonal.user.application.FindUserImpl;
 import hexagonal.user.application.UserRepository;
 import hexagonal.user.entity.User;
+import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 @ExtendWith(MockitoExtension.class)
 public class UserApplicationTest {
@@ -48,7 +53,7 @@ public class UserApplicationTest {
 
         var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
         var id = createUser.execute(input);
-        Assertions.assertEquals(1L, id);
+        assertEquals(1L, id);
     }
 
     @Test
@@ -63,6 +68,30 @@ public class UserApplicationTest {
 
         var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
         var exception = Assertions.assertThrows(BusinessException.class, () -> createUser.execute(input));
-        Assertions.assertEquals("A senha deve conter pelo menos 8 caracteres", exception.getMessage());
+        assertEquals("A senha deve conter pelo menos 8 caracteres", exception.getMessage());
+    }
+
+    @Test
+    void shouldFindAUser() {
+
+        var expected = UserTestUtils.existentUser;
+
+        Mockito.when(mockUserRepository.find(1L))
+                .thenReturn(UserTestUtils.existentUser);
+
+        var findUser = new FindUserImpl(mockUserRepository);
+        var user = findUser.execute(1L);
+        assertEquals(user, expected);
+    }
+
+    @Test
+    void shouldNotFindAUser() {
+
+        Mockito.when(mockUserRepository.find(2L))
+                .thenThrow(BusinessException.class);
+
+        var findUser = new FindUserImpl(mockUserRepository);
+        var exception = Assertions.assertThrows(BusinessException.class, () -> findUser.execute(2L));
+        assertInstanceOf(BusinessException.class, exception);
     }
 }
