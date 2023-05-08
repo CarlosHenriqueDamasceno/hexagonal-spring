@@ -22,7 +22,7 @@ public class UserTests {
     void shouldInstantiateANewUser() {
 
         Mockito.when(mockEncryptor.encrypt("12345678"))
-                .thenReturn("7c222fb2927d828af22f592134e8932480637c0d"); // encripted with sha1
+                .thenReturn("7c222fb2927d828af22f592134e8932480637c0d"); // encrypted with sha1
 
         User user = User.buildNonExistentUser(
                 "Carlos",
