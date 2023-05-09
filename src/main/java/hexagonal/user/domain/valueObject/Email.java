@@ -10,7 +10,7 @@ public final class Email {
     public Email(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         if (!email.matches(emailRegex)) {
-            throw new BusinessException("Email inválido");
+            throw new BusinessException("Email inválido.");
         }
         value = email;
     }

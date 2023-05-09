@@ -10,7 +10,6 @@ import hexagonal.user.application.usecase.UpdateUserImpl;
 import hexagonal.user.application.usecase.contract.CreateUser;
 import hexagonal.user.application.usecase.contract.UpdateUser;
 import hexagonal.user.domain.User;
-import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,7 +74,7 @@ public class UserApplicationTest {
 
         var createUser = new CreateUserImpl(mockUserRepository, mockEncryptor);
         var exception = Assertions.assertThrows(BusinessException.class, () -> createUser.execute(input));
-        assertEquals("O email enviado já está em uso por outro usuário.", exception.getMessage());
+        assertEquals(UserTestUtils.invalidEmailErrorMessage, exception.getMessage());
     }
 
     @Test
@@ -99,7 +98,7 @@ public class UserApplicationTest {
 
         var findUser = new FindUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> findUser.execute(2L));
-        assertEquals("Usuário não encontrado.", exception.getMessage());
+        assertEquals(UserTestUtils.invalidUserErrorMessage, exception.getMessage());
     }
 
     @Test
@@ -129,7 +128,7 @@ public class UserApplicationTest {
         );
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> updateUser.execute(2L, input));
-        assertEquals("Usuário não encontrado.", exception.getMessage());
+        assertEquals(UserTestUtils.invalidUserErrorMessage, exception.getMessage());
     }
 
     @Test
@@ -147,7 +146,7 @@ public class UserApplicationTest {
         );
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> updateUser.execute(1L, input));
-        assertEquals("O email enviado já está em uso por outro usuário.", exception.getMessage());
+        assertEquals(UserTestUtils.invalidEmailErrorMessage, exception.getMessage());
     }
 
     @Test
@@ -168,6 +167,6 @@ public class UserApplicationTest {
 
         var deleteUser = new DeleteUserImpl(mockUserRepository);
         var exception = assertThrows(BusinessException.class, () -> deleteUser.execute(2L));
-        assertEquals("Usuário não encontrado.", exception.getMessage());
+        assertEquals(UserTestUtils.invalidUserErrorMessage, exception.getMessage());
     }
 }

@@ -36,7 +36,7 @@ public class User {
 
     public static User buildExistentUser(Long id, String name, String email, String password) {
         if (id == null)
-            throw new BusinessException("O usuário deve conter um id válido");
+            throw new BusinessException("O usuário deve conter um id válido.");
         return new User(id, name, new Email(email), new Password(password));
     }
 

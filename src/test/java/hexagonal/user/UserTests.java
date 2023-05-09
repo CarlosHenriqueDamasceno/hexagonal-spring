@@ -3,7 +3,6 @@ package hexagonal.user;
 import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.domain.User;
-import hexagonal.user.utils.UserTestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -45,7 +44,7 @@ public class UserTests {
                     );
                 }
         );
-        assertEquals("A senha deve conter pelo menos 8 caracteres", exception.getMessage());
+        assertEquals(UserTestUtils.invalidPasswordErrorMessage, exception.getMessage());
     }
 
     @Test
@@ -60,7 +59,7 @@ public class UserTests {
                 }
         );
 
-        assertEquals("Email inválido", exception.getMessage());
+        assertEquals(UserTestUtils.emailInWrongFormatErrorMessage, exception.getMessage());
     }
 
     @Test
@@ -86,6 +85,6 @@ public class UserTests {
                     );
                 }
         );
-        assertEquals("O usuário deve conter um id válido", exception.getMessage());
+        assertEquals(UserTestUtils.invalidIdForExistentUser, exception.getMessage());
     }
 }
