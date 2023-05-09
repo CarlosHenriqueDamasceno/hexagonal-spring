@@ -4,6 +4,7 @@ import hexagonal.shared.adapters.EncryptorAdapter;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.UserRepository;
 import hexagonal.user.application.usecase.CreateUserImpl;
+import hexagonal.user.application.usecase.DeleteUserImpl;
 import hexagonal.user.application.usecase.FindUserImpl;
 import hexagonal.user.application.usecase.UpdateUserImpl;
 import hexagonal.user.application.usecase.contract.CreateUser;
@@ -17,8 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserApplicationTest {
@@ -97,7 +97,7 @@ public class UserApplicationTest {
 
         var findUser = new FindUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> findUser.execute(2L));
-        assertInstanceOf(BusinessException.class, exception);
+        assertEquals("Usuário não encontrado.", exception.getMessage());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class UserApplicationTest {
         );
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> updateUser.execute(2L, input));
-        assertInstanceOf(BusinessException.class, exception);
+        assertEquals("Usuário não encontrado.", exception.getMessage());
     }
 
     @Test
@@ -145,6 +145,27 @@ public class UserApplicationTest {
         );
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> updateUser.execute(1L, input));
-        assertInstanceOf(BusinessException.class, exception);
+        assertEquals("O email enviado já está em uso por outro usuário.", exception.getMessage());
+    }
+
+    @Test
+    void shouldDeleteAUser() {
+
+        Mockito.when(mockUserRepository.find(1L))
+                .thenReturn(UserTestUtils.existentUser);
+
+        var deleteUser = new DeleteUserImpl(mockUserRepository);
+        assertDoesNotThrow(() -> deleteUser.execute(1L));
+    }
+
+    @Test
+    void shouldNotDeleteAUserBecauseInvalidId() {
+
+        Mockito.when(mockUserRepository.find(2L))
+                .thenReturn(null);
+
+        var deleteUser = new DeleteUserImpl(mockUserRepository);
+        var exception = assertThrows(BusinessException.class, () -> deleteUser.execute(2L));
+        assertEquals("Usuário não encontrado.", exception.getMessage());
     }
 }

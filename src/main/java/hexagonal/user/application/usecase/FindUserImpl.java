@@ -17,6 +17,6 @@ public class FindUserImpl implements FindUser {
         var user = repo.find(id);
         if (user != null)
             return user;
-        throw new BusinessException("Usuário não encontrado");
+        throw new BusinessException("Usuário não encontrado.");
     }
 }
