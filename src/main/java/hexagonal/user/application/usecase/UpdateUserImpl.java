@@ -15,6 +15,8 @@ public class UpdateUserImpl implements UpdateUser {
     @Override
     public User execute(Long id, UpdateUserInput data) {
         var user = repo.find(id);
+        if (user == null)
+            throw new BusinessException("Usuário não encontrado.");
         if (repo.findByEmail(data.email()) != null)
             throw new BusinessException("O email enviado já está em uso por outro usuário.");
 

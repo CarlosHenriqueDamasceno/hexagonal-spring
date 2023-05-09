@@ -30,7 +30,7 @@ public class UserApplicationTest {
     UserRepository mockUserRepository;
 
     @Test
-    void shouldCreateAUser() {
+    void shouldCreateAnUser() {
 
         Mockito.when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
                 .thenReturn(UserTestUtils.rightPasswordEncrypted);
@@ -60,7 +60,7 @@ public class UserApplicationTest {
     }
 
     @Test
-    void shouldNotCreateAUserBecauseInvalidEmail() {
+    void shouldNotCreateUserBecauseInvalidEmail() {
 
         Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
                 .thenReturn(UserTestUtils.existentUser);
@@ -90,10 +90,10 @@ public class UserApplicationTest {
     }
 
     @Test
-    void shouldNotFindAUser() {
+    void shouldNotFindUser() {
 
         Mockito.when(mockUserRepository.find(2L))
-                .thenThrow(BusinessException.class);
+                .thenReturn(null);
 
         var findUser = new FindUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> findUser.execute(2L));
@@ -101,7 +101,7 @@ public class UserApplicationTest {
     }
 
     @Test
-    void shouldUpdateAUser() {
+    void shouldUpdateUser() {
 
         Mockito.when(mockUserRepository.find(1L))
                 .thenReturn(UserTestUtils.existentUser);
@@ -113,5 +113,38 @@ public class UserApplicationTest {
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var result = updateUser.execute(1L, input);
         assertEquals(result, UserTestUtils.updatedUser);
+    }
+
+    @Test
+    void shouldNotUpdateUserBecauseInvalidId() {
+
+        Mockito.when(mockUserRepository.find(2L))
+                .thenReturn(null);
+
+        var input = new UpdateUser.UpdateUserInput(
+                "Carlos editado",
+                UserTestUtils.editedEmail
+        );
+        var updateUser = new UpdateUserImpl(mockUserRepository);
+        var exception = Assertions.assertThrows(BusinessException.class, () -> updateUser.execute(2L, input));
+        assertInstanceOf(BusinessException.class, exception);
+    }
+
+    @Test
+    void shouldNotUpdateUserBecauseInvalidEmail() {
+
+        Mockito.when(mockUserRepository.find(1L))
+                .thenReturn(UserTestUtils.existentUser);
+
+        Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
+                .thenReturn(UserTestUtils.existentUser);
+
+        var input = new UpdateUser.UpdateUserInput(
+                "Carlos editado",
+                UserTestUtils.validEmail
+        );
+        var updateUser = new UpdateUserImpl(mockUserRepository);
+        var exception = Assertions.assertThrows(BusinessException.class, () -> updateUser.execute(1L, input));
+        assertInstanceOf(BusinessException.class, exception);
     }
 }
