@@ -19,7 +19,7 @@ public class CreateUserImpl implements CreateUser {
     @Override
     public Long execute(UserInput data) {
 
-        if (repo.findByEmail(data.email()) != null)
+        if (repo.findByEmail(data.email()).isPresent())
             throw new BusinessException("O email enviado já está em uso por outro usuário.");
 
         User user = User.buildNonExistentUser(

@@ -13,7 +13,7 @@ public class DeleteUserImpl implements DeleteUser {
 
     @Override
     public void execute(Long id) {
-        if (userRepository.find(id) == null)
+        if (userRepository.find(id).isEmpty())
             throw new BusinessException("Usuário não encontrado.");
         userRepository.delete(id);
     }

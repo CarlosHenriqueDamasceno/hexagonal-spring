@@ -2,14 +2,16 @@ package hexagonal.user.application;
 
 import hexagonal.user.domain.User;
 
+import java.util.Optional;
+
 public interface UserRepository {
     Long create(User user);
 
-    User find(Long id);
+    Optional<User> find(Long id);
 
     void update(User user);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     void delete(Long id);
 }

@@ -14,9 +14,9 @@ public class FindUserImpl implements FindUser {
 
     @Override
     public User execute(Long id) {
-        var user = repo.find(id);
-        if (user != null)
-            return user;
+        var possibleUser = repo.find(id);
+        if (possibleUser.isPresent())
+            return possibleUser.get();
         throw new BusinessException("Usuário não encontrado.");
     }
 }

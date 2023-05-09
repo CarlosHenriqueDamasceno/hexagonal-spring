@@ -14,11 +14,13 @@ public class UpdateUserImpl implements UpdateUser {
 
     @Override
     public User execute(Long id, UpdateUserInput data) {
-        var user = repo.find(id);
-        if (user == null)
+        var possibleUser = repo.find(id);
+        if (possibleUser.isEmpty())
             throw new BusinessException("Usuário não encontrado.");
-        if (repo.findByEmail(data.email()) != null)
+        if (repo.findByEmail(data.email()).isPresent())
             throw new BusinessException("O email enviado já está em uso por outro usuário.");
+
+        var user = possibleUser.get();
 
         user = User.buildExistentUser(
                 user.getId(),

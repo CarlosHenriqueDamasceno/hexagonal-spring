@@ -18,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,7 +38,7 @@ public class UserApplicationTest {
                 .thenReturn(UserTestUtils.rightPasswordEncrypted);
 
         Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
 
         var user = User.buildNonExistentUser(
                 "Carlos",
@@ -63,7 +65,7 @@ public class UserApplicationTest {
     void shouldNotCreateUserBecauseInvalidEmail() {
 
         Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
-                .thenReturn(UserTestUtils.existentUser);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new CreateUser.UserInput(
                 "Carlos",
@@ -82,7 +84,7 @@ public class UserApplicationTest {
         var expected = UserTestUtils.existentUser;
 
         Mockito.when(mockUserRepository.find(1L))
-                .thenReturn(UserTestUtils.existentUser);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var findUser = new FindUserImpl(mockUserRepository);
         var user = findUser.execute(1L);
@@ -93,7 +95,7 @@ public class UserApplicationTest {
     void shouldNotFindUser() {
 
         Mockito.when(mockUserRepository.find(2L))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
 
         var findUser = new FindUserImpl(mockUserRepository);
         var exception = Assertions.assertThrows(BusinessException.class, () -> findUser.execute(2L));
@@ -104,7 +106,7 @@ public class UserApplicationTest {
     void shouldUpdateUser() {
 
         Mockito.when(mockUserRepository.find(1L))
-                .thenReturn(UserTestUtils.existentUser);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new UpdateUser.UpdateUserInput(
                 "Carlos editado",
@@ -119,7 +121,7 @@ public class UserApplicationTest {
     void shouldNotUpdateUserBecauseInvalidId() {
 
         Mockito.when(mockUserRepository.find(2L))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
 
         var input = new UpdateUser.UpdateUserInput(
                 "Carlos editado",
@@ -134,10 +136,10 @@ public class UserApplicationTest {
     void shouldNotUpdateUserBecauseInvalidEmail() {
 
         Mockito.when(mockUserRepository.find(1L))
-                .thenReturn(UserTestUtils.existentUser);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
-                .thenReturn(UserTestUtils.existentUser);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new UpdateUser.UpdateUserInput(
                 "Carlos editado",
@@ -152,7 +154,7 @@ public class UserApplicationTest {
     void shouldDeleteAUser() {
 
         Mockito.when(mockUserRepository.find(1L))
-                .thenReturn(UserTestUtils.existentUser);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var deleteUser = new DeleteUserImpl(mockUserRepository);
         assertDoesNotThrow(() -> deleteUser.execute(1L));
@@ -162,7 +164,7 @@ public class UserApplicationTest {
     void shouldNotDeleteAUserBecauseInvalidId() {
 
         Mockito.when(mockUserRepository.find(2L))
-                .thenReturn(null);
+                .thenReturn(Optional.empty());
 
         var deleteUser = new DeleteUserImpl(mockUserRepository);
         var exception = assertThrows(BusinessException.class, () -> deleteUser.execute(2L));
