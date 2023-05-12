@@ -1,17 +1,39 @@
 package hexagonal.category;
 
+import hexagonal.category.application.CategoryRepository;
+import hexagonal.category.application.usecase.CreateCategoryImpl;
+import hexagonal.category.application.usecase.contract.CreateCategory;
+import hexagonal.category.domain.Category;
+import hexagonal.category.domain.PostingType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class CategoryApplicationTest {
+
+    @Mock
+    CategoryRepository mockCategoryRepository;
+
     @Test
     void shouldCreateACategory() {
-        var categoryRepository = new CategoryRepository();
-        var input = new CategoryInput(1, "Alimentação");
-        var createCategory = new CreateCategoryImpl(categoryRepository);
+
+        var category = Category.buildNonExistentCategory(
+                "Alimentação",
+                PostingType.EXPENSE
+        );
+
+        Mockito.when(mockCategoryRepository.create(category))
+                .thenReturn(Optional.of(CategoryTestUtils.existentCategory));
+
+        var input = new CreateCategory.CategoryInput("Alimentação", PostingType.EXPENSE);
+        var createCategory = new CreateCategoryImpl(mockCategoryRepository);
         var result = createCategory.execute(input);
-        assertEquals(1L, result);
+        Assertions.assertEquals(1L, result);
     }
 }

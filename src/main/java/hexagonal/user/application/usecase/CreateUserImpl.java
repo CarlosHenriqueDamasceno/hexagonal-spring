@@ -28,6 +28,6 @@ public class CreateUserImpl implements CreateUser {
                 data.password(),
                 encryptorAdapter
         );
-        return repo.create(user);
+        return repo.create(user).map(User::getId).orElse(null);
     }
 }

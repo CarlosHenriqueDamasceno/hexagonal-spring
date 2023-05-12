@@ -47,7 +47,7 @@ public class UserApplicationTest {
         );
 
         Mockito.when(mockUserRepository.create(user))
-                .thenReturn(1L);
+                .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new CreateUser.UserInput(
                 "Carlos",

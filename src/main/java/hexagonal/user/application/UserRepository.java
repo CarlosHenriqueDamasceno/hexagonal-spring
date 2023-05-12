@@ -5,7 +5,7 @@ import hexagonal.user.domain.User;
 import java.util.Optional;
 
 public interface UserRepository {
-    Long create(User user);
+    Optional<User> create(User user);
 
     Optional<User> find(Long id);
 
