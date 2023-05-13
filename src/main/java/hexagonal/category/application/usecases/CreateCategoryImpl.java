@@ -1,7 +1,7 @@
-package hexagonal.category.application.usecase;
+package hexagonal.category.application.usecases;
 
 import hexagonal.category.application.CategoryRepository;
-import hexagonal.category.application.usecase.contract.CreateCategory;
+import hexagonal.category.application.usecases.ports.CreateCategory;
 import hexagonal.category.domain.Category;
 
 public class CreateCategoryImpl implements CreateCategory {

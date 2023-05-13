@@ -1,4 +1,4 @@
-package hexagonal.category.application.usecase.contract;
+package hexagonal.category.application.usecases.ports;
 
 import hexagonal.category.domain.PostingType;
 

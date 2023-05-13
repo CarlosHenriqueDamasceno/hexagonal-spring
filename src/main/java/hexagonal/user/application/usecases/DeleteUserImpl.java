@@ -1,8 +1,8 @@
-package hexagonal.user.application.usecase;
+package hexagonal.user.application.usecases;
 
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.usecase.contract.DeleteUser;
+import hexagonal.user.application.usecases.ports.DeleteUser;
 
 public class DeleteUserImpl implements DeleteUser {
     private final UserRepository userRepository;

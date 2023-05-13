@@ -1,8 +1,8 @@
-package hexagonal.category;
+package hexagonal.application.category;
 
 import hexagonal.category.application.CategoryRepository;
-import hexagonal.category.application.usecase.CreateCategoryImpl;
-import hexagonal.category.application.usecase.contract.CreateCategory;
+import hexagonal.category.application.usecases.CreateCategoryImpl;
+import hexagonal.category.application.usecases.ports.CreateCategory;
 import hexagonal.category.domain.Category;
 import hexagonal.category.domain.PostingType;
 import org.junit.jupiter.api.Assertions;

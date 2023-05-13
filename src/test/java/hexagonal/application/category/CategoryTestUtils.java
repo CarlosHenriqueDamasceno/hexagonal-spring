@@ -1,4 +1,4 @@
-package hexagonal.category;
+package hexagonal.application.category;
 
 import hexagonal.category.domain.Category;
 import hexagonal.category.domain.PostingType;
