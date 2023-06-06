@@ -1,8 +1,8 @@
-package hexagonal.user.application.usecase;
+package hexagonal.user.application.usecases;
 
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.usecase.contract.FindUser;
+import hexagonal.user.application.usecases.ports.FindUser;
 import hexagonal.user.domain.User;
 
 public class FindUserImpl implements FindUser {

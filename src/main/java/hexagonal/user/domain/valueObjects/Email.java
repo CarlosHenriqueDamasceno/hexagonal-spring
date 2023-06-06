@@ -1,4 +1,4 @@
-package hexagonal.user.domain.valueObject;
+package hexagonal.user.domain.valueObjects;
 
 import hexagonal.shared.exceptions.BusinessException;
 

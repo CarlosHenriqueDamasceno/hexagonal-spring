@@ -1,4 +1,4 @@
-package hexagonal.user.application.usecase.contract;
+package hexagonal.user.application.usecases.ports;
 
 public interface CreateUser {
     Long execute(UserInput data);

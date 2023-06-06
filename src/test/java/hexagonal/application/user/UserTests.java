@@ -1,6 +1,6 @@
-package hexagonal.user;
+package hexagonal.application.user;
 
-import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserTests {
 
     @Mock
-    EncryptorAdapter mockEncryptor;
+    EncryptionServicePort mockEncryptor;
 
     @Test
     void shouldInstantiateANewUser() {
