@@ -1,4 +1,4 @@
-package hexagonal.user.application.usecase.contract;
+package hexagonal.user.application.usecases.ports;
 
 import hexagonal.user.domain.User;
 

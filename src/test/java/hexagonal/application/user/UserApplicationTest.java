@@ -1,14 +1,14 @@
-package hexagonal.user;
+package hexagonal.application.user;
 
-import hexagonal.shared.adapters.EncryptorAdapter;
+import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.usecase.CreateUserImpl;
-import hexagonal.user.application.usecase.DeleteUserImpl;
-import hexagonal.user.application.usecase.FindUserImpl;
-import hexagonal.user.application.usecase.UpdateUserImpl;
-import hexagonal.user.application.usecase.contract.CreateUser;
-import hexagonal.user.application.usecase.contract.UpdateUser;
+import hexagonal.user.application.usecases.CreateUserImpl;
+import hexagonal.user.application.usecases.DeleteUserImpl;
+import hexagonal.user.application.usecases.FindUserImpl;
+import hexagonal.user.application.usecases.UpdateUserImpl;
+import hexagonal.user.application.usecases.ports.CreateUser;
+import hexagonal.user.application.usecases.ports.UpdateUser;
 import hexagonal.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserApplicationTest {
 
     @Mock
-    EncryptorAdapter mockEncryptor;
+    EncryptionServicePort mockEncryptor;
 
     @Mock
     UserRepository mockUserRepository;
