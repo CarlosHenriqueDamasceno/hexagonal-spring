@@ -15,7 +15,7 @@ public final class Email {
         value = email;
     }
 
-    public String getValue() {
+    public String value() {
         return value;
     }
 
