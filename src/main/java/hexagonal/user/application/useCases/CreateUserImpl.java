@@ -1,9 +1,9 @@
-package hexagonal.user.application.usecases;
+package hexagonal.user.application.useCases;
 
-import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.usecases.ports.CreateUser;
+import hexagonal.user.application.useCases.ports.CreateUser;
 import hexagonal.user.domain.User;
 
 public class CreateUserImpl implements CreateUser {

@@ -1,8 +1,8 @@
-package hexagonal.user.application.usecases;
+package hexagonal.user.application.useCases;
 
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.usecases.ports.UpdateUser;
+import hexagonal.user.application.useCases.ports.UpdateUser;
 import hexagonal.user.domain.User;
 
 public class UpdateUserImpl implements UpdateUser {

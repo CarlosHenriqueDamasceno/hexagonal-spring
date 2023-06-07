@@ -1,14 +1,14 @@
 package hexagonal.application.user;
 
-import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.usecases.CreateUserImpl;
-import hexagonal.user.application.usecases.DeleteUserImpl;
-import hexagonal.user.application.usecases.FindUserImpl;
-import hexagonal.user.application.usecases.UpdateUserImpl;
-import hexagonal.user.application.usecases.ports.CreateUser;
-import hexagonal.user.application.usecases.ports.UpdateUser;
+import hexagonal.user.application.useCases.CreateUserImpl;
+import hexagonal.user.application.useCases.DeleteUserImpl;
+import hexagonal.user.application.useCases.FindUserImpl;
+import hexagonal.user.application.useCases.UpdateUserImpl;
+import hexagonal.user.application.useCases.ports.CreateUser;
+import hexagonal.user.application.useCases.ports.UpdateUser;
 import hexagonal.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
