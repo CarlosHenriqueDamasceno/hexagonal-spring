@@ -28,6 +28,6 @@ public class CreateUserImpl implements CreateUser {
                 data.password(),
                 encryptionServicePort
         );
-        return repo.create(user).map(User::getId).orElse(null);
+        return repo.create(user).map(User::id).orElse(null);
     }
 }

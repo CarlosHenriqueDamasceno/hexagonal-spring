@@ -1,7 +1,7 @@
 package hexagonal.user.domain;
 
-import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.user.domain.valueObjects.Email;
 import hexagonal.user.domain.valueObjects.Password;
 
@@ -34,25 +34,30 @@ public class User {
         );
     }
 
-    public static User buildExistentUser(Long id, String name, String email, String password) {
+    public static User buildExistentUser(
+            Long id,
+            String name,
+            String email,
+            String password
+    ) {
         if (id == null)
             throw new BusinessException("O usuário deve conter um id válido.");
         return new User(id, name, new Email(email), new Password(password));
     }
 
-    public Long getId() {
+    public Long id() {
         return id;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public Email getEmail() {
+    public Email email() {
         return email;
     }
 
-    public Password getPassword() {
+    public Password password() {
         return password;
     }
 

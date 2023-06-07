@@ -23,10 +23,10 @@ public class UpdateUserImpl implements UpdateUser {
         var user = possibleUser.get();
 
         user = User.buildExistentUser(
-                user.getId(),
+                user.id(),
                 data.name(),
                 data.email(),
-                user.getPassword().value()
+                user.password().value()
         );
         repo.update(user);
         return user;

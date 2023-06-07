@@ -1,7 +1,7 @@
 package hexagonal.application.user;
 
-import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +30,7 @@ public class UserTests {
                 UserTestUtils.rightPassword,
                 mockEncryptor
         );
-        assertEquals(UserTestUtils.rightPasswordEncrypted, user.getPassword().value());
+        assertEquals(UserTestUtils.rightPasswordEncrypted, user.password().value());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class UserTests {
                 UserTestUtils.invalidPassword
         );
 
-        assertEquals(1L, user.getId());
+        assertEquals(1L, user.id());
     }
 
     @Test
