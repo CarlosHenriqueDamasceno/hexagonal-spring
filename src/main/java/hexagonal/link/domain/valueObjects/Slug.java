@@ -1,13 +1,21 @@
 package hexagonal.link.domain.valueObjects;
 
+import hexagonal.shared.exceptions.BusinessException;
+
 import java.util.Objects;
 import java.util.Random;
 
 public final class Slug {
 
     private final String value;
+    public final static int minlength = 7;
+    public final static int maxlength = 9;
 
     public Slug(String value) {
+        if (value == null)
+            throw new BusinessException("The slug can not be null");
+        if (value.length() < 7 || value.length() > 9)
+            throw new BusinessException("The slug length has to be between " + minlength + " and " + maxlength);
         this.value = value;
     }
 
@@ -42,4 +50,6 @@ public final class Slug {
     public int hashCode() {
         return Objects.hash(value);
     }
+
+
 }
