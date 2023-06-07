@@ -1,7 +1,6 @@
 package hexagonal.application.link;
 
 import hexagonal.link.domain.Link;
-import hexagonal.link.domain.valueObjects.Slug;
 import hexagonal.shared.exceptions.BusinessException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,13 +13,13 @@ public class LinkUnitTest {
 
     @Test
     void shouldInstantiateANewLinkWithGivenSlug() {
-        Link link = Link.buildNonExistentLink("https://www.google.com.br", "45d3df0");
-        assertEquals("45d3df0", link.slug().value());
+        Link link = Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.validSlug);
+        assertEquals(LinkUnitTestUtils.validSlug, link.slug().value());
     }
 
     @Test
     void shouldInstantiateANewLinkWithGeneratedSlug() {
-        Link link = Link.buildNonExistentLink("https://www.google.com.br");
+        Link link = Link.buildNonExistentLink(LinkUnitTestUtils.validUrl);
         assertNotNull(link.slug());
     }
 
@@ -28,21 +27,21 @@ public class LinkUnitTest {
     void shouldNotInstantiateANewLinkWithNullGivenSlug() {
 
         var exception = assertThrows(BusinessException.class, () -> {
-                    Link.buildNonExistentLink("https://www.google.com.br", null);
+                    Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, null);
                 }
         );
-        assertEquals("The slug can not be null", exception.getMessage());
+        assertEquals(LinkUnitTestUtils.nullSlugErrorMessage, exception.getMessage());
     }
 
     @Test
     void shouldNotInstantiateANewLinkWithNullInvalidSizeSlug() {
 
         var exception = assertThrows(BusinessException.class, () -> {
-                    Link.buildNonExistentLink("https://www.google.com.br", "sdawsdaswd");
+                    Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.invalidSlug);
                 }
         );
         assertEquals(
-                "The slug length has to be between " + Slug.minlength + " and " + Slug.maxlength,
+                LinkUnitTestUtils.invalidLengthErrorMessage,
                 exception.getMessage()
         );
     }
