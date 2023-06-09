@@ -1,9 +1,9 @@
 package hexagonal.link.application.useCases;
 
-import hexagonal.link.application.LinkRepository;
-import hexagonal.link.application.useCases.ports.CreateLink;
-import hexagonal.link.application.useCases.ports.LinkOutput;
 import hexagonal.link.domain.Link;
+import hexagonal.link.port.LinkRepository;
+import hexagonal.link.port.application.CreateLink;
+import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.shared.exceptions.BusinessException;
 
 public class CreateLinkImpl implements CreateLink {

@@ -1,8 +1,8 @@
 package hexagonal.unit.link;
 
-import hexagonal.link.application.LinkRepository;
 import hexagonal.link.application.useCases.CreateLinkImpl;
-import hexagonal.link.application.useCases.ports.CreateLink;
+import hexagonal.link.port.LinkRepository;
+import hexagonal.link.port.application.CreateLink;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -47,5 +47,21 @@ public class CreateLinkUnitTest {
         var createLink = new CreateLinkImpl(mockLinkRepository);
         var newLink = createLink.execute(input);
         assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
+    }
+
+    @Test
+    void shouldCreateALinkWithNonGivenSlugTryingTwoTimes() {
+        Mockito.when(mockLinkRepository.findBySlug(Mockito.anyString()))
+                .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
+        Mockito.when(mockLinkRepository.create(Mockito.argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
+                .thenReturn(LinkUnitTestUtils.existentLink);
+        var input = new CreateLink.LinkInput(
+                LinkUnitTestUtils.validUrl,
+                null
+        );
+        var createLink = new CreateLinkImpl(mockLinkRepository);
+        var newLink = createLink.execute(input);
+        assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
+        Mockito.verify(mockLinkRepository, Mockito.atLeast(2)).findBySlug(Mockito.anyString());
     }
 }

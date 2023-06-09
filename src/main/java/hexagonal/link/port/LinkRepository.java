@@ -1,4 +1,4 @@
-package hexagonal.link.application;
+package hexagonal.link.port;
 
 import hexagonal.link.domain.Link;
 

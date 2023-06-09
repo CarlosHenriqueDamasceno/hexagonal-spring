@@ -1,4 +1,4 @@
-package hexagonal.link.application.useCases.ports;
+package hexagonal.link.port.dto;
 
 import hexagonal.link.domain.Link;
 
