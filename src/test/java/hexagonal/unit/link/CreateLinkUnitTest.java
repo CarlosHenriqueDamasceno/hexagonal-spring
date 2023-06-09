@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateLinkUnitTest {
@@ -36,9 +37,9 @@ public class CreateLinkUnitTest {
 
     @Test
     void shouldCreateALinkWithNonGivenSlug() {
-        Mockito.when(mockLinkRepository.findBySlug(Mockito.anyString()))
+        Mockito.when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.empty());
-        Mockito.when(mockLinkRepository.create(Mockito.argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
+        Mockito.when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,
@@ -51,9 +52,9 @@ public class CreateLinkUnitTest {
 
     @Test
     void shouldCreateALinkWithNonGivenSlugTryingTwoTimes() {
-        Mockito.when(mockLinkRepository.findBySlug(Mockito.anyString()))
+        Mockito.when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
-        Mockito.when(mockLinkRepository.create(Mockito.argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
+        Mockito.when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,
@@ -62,6 +63,6 @@ public class CreateLinkUnitTest {
         var createLink = new CreateLinkImpl(mockLinkRepository);
         var newLink = createLink.execute(input);
         assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
-        Mockito.verify(mockLinkRepository, Mockito.atLeast(2)).findBySlug(Mockito.anyString());
+        verify(mockLinkRepository, times(2)).findBySlug(anyString());
     }
 }
