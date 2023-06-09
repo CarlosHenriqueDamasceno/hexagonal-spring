@@ -1,4 +1,4 @@
-package hexagonal.application.link;
+package hexagonal.unit.link;
 
 import hexagonal.link.domain.Link;
 import hexagonal.shared.exceptions.BusinessException;

@@ -1,4 +1,4 @@
-package hexagonal.application.user;
+package hexagonal.unit.user;
 
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.user.domain.User;

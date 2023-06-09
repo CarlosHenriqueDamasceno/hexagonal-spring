@@ -1,4 +1,4 @@
-package hexagonal.application.link;
+package hexagonal.unit.link;
 
 import hexagonal.link.application.LinkRepository;
 import hexagonal.link.application.useCases.CreateLinkImpl;
