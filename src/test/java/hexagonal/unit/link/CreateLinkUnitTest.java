@@ -36,9 +36,9 @@ public class CreateLinkUnitTest {
 
     @Test
     void shouldCreateALinkWithNonGivenSlug() {
-        Mockito.when(mockLinkRepository.findBySlug(LinkUnitTestUtils.validSlug))
+        Mockito.when(mockLinkRepository.findBySlug(Mockito.anyString()))
                 .thenReturn(Optional.empty());
-        Mockito.when(mockLinkRepository.create(LinkUnitTestUtils.nonExistentLink))
+        Mockito.when(mockLinkRepository.create(Mockito.argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,

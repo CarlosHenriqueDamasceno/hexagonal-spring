@@ -15,8 +15,15 @@ public class CreateLinkImpl implements CreateLink {
 
     @Override
     public LinkOutput execute(LinkInput input) {
-        boolean generatedSlug = input.slug() == null;
-        var link = Link.buildNonExistentLink(input.url(), input.slug());
+        boolean generatedSlug;
+        Link link;
+        if (input.slug() != null) {
+            generatedSlug = false;
+            link = Link.buildNonExistentLink(input.url(), input.slug());
+        } else {
+            generatedSlug = true;
+            link = Link.buildNonExistentLink(input.url());
+        }
         validateSlug(link, generatedSlug);
         return LinkOutput.fromEntity(linkRepository.create(link));
     }
