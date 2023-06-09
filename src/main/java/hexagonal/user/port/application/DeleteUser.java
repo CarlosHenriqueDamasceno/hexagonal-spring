@@ -1,4 +1,4 @@
-package hexagonal.user.application.useCases.ports;
+package hexagonal.user.port.application;
 
 public interface DeleteUser {
     void execute(Long id);

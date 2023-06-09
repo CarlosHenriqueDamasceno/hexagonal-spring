@@ -21,8 +21,8 @@ public class CreateLinkUnitTest {
 
     @Test
     void shouldCreateALink() {
-//        Mockito.when(mockLinkRepository.findBySlug(LinkUnitTestUtils.validSlug))
-//                .thenReturn(Optional.empty());
+        Mockito.when(mockLinkRepository.findBySlug(LinkUnitTestUtils.validSlug))
+                .thenReturn(Optional.empty());
         Mockito.when(mockLinkRepository.create(LinkUnitTestUtils.nonExistentLink))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         var input = new CreateLink.LinkInput(

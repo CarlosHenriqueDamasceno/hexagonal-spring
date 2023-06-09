@@ -1,4 +1,4 @@
-package hexagonal.user.application;
+package hexagonal.user.port;
 
 import hexagonal.user.domain.User;
 

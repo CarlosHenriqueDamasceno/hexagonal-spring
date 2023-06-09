@@ -1,9 +1,11 @@
-package hexagonal.user.application.useCases;
+package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.useCases.ports.UpdateUser;
 import hexagonal.user.domain.User;
+import hexagonal.user.port.UserRepository;
+import hexagonal.user.port.application.UpdateUser;
+import hexagonal.user.port.dto.UpdateUserInput;
+import hexagonal.user.port.dto.UserOutput;
 
 public class UpdateUserImpl implements UpdateUser {
     private final UserRepository repo;
@@ -13,7 +15,7 @@ public class UpdateUserImpl implements UpdateUser {
     }
 
     @Override
-    public User execute(Long id, UpdateUserInput data) {
+    public UserOutput execute(Long id, UpdateUserInput data) {
         var possibleUser = repo.find(id);
         if (possibleUser.isEmpty())
             throw new BusinessException("Usuário não encontrado.");
@@ -29,6 +31,6 @@ public class UpdateUserImpl implements UpdateUser {
                 user.password().value()
         );
         repo.update(user);
-        return user;
+        return UserOutput.fromUser(user);
     }
 }

@@ -1,9 +1,9 @@
 package hexagonal.user.domain;
 
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.ports.EncryptionServicePort;
 import hexagonal.user.domain.valueObjects.Email;
 import hexagonal.user.domain.valueObjects.Password;
+import hexagonal.user.port.EncryptionServicePort;
 
 import java.util.Objects;
 

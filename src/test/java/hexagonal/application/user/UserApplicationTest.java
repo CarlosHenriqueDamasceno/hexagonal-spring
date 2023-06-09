@@ -1,15 +1,16 @@
 package hexagonal.application.user;
 
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.ports.EncryptionServicePort;
-import hexagonal.user.application.UserRepository;
-import hexagonal.user.application.useCases.CreateUserImpl;
-import hexagonal.user.application.useCases.DeleteUserImpl;
-import hexagonal.user.application.useCases.FindUserImpl;
-import hexagonal.user.application.useCases.UpdateUserImpl;
-import hexagonal.user.application.useCases.ports.CreateUser;
-import hexagonal.user.application.useCases.ports.UpdateUser;
 import hexagonal.user.domain.User;
+import hexagonal.user.domain.application.CreateUserImpl;
+import hexagonal.user.domain.application.DeleteUserImpl;
+import hexagonal.user.domain.application.FindUserImpl;
+import hexagonal.user.domain.application.UpdateUserImpl;
+import hexagonal.user.port.EncryptionServicePort;
+import hexagonal.user.port.UserRepository;
+import hexagonal.user.port.dto.UpdateUserInput;
+import hexagonal.user.port.dto.UserInput;
+import hexagonal.user.port.dto.UserOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,7 +50,7 @@ public class UserApplicationTest {
         Mockito.when(mockUserRepository.create(user))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
-        var input = new CreateUser.UserInput(
+        var input = new UserInput(
                 "Carlos",
                 UserTestUtils.validEmail,
                 UserTestUtils.rightPassword
@@ -66,7 +67,7 @@ public class UserApplicationTest {
         Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
-        var input = new CreateUser.UserInput(
+        var input = new UserInput(
                 "Carlos",
                 UserTestUtils.validEmail,
                 UserTestUtils.rightPassword
@@ -80,7 +81,7 @@ public class UserApplicationTest {
     @Test
     void shouldFindAUser() {
 
-        var expected = UserTestUtils.existentUser;
+        var expected = UserOutput.fromUser(UserTestUtils.existentUser);
 
         Mockito.when(mockUserRepository.find(1L))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
@@ -107,13 +108,14 @@ public class UserApplicationTest {
         Mockito.when(mockUserRepository.find(1L))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
-        var input = new UpdateUser.UpdateUserInput(
+        var input = new UpdateUserInput(
                 "Carlos editado",
                 UserTestUtils.editedEmail
         );
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var result = updateUser.execute(1L, input);
-        assertEquals(result, UserTestUtils.updatedUser);
+        assertEquals(result.name(), UserTestUtils.updatedUser.name());
+        assertEquals(result.email(), UserTestUtils.updatedUser.email().value());
     }
 
     @Test
@@ -122,7 +124,7 @@ public class UserApplicationTest {
         Mockito.when(mockUserRepository.find(2L))
                 .thenReturn(Optional.empty());
 
-        var input = new UpdateUser.UpdateUserInput(
+        var input = new UpdateUserInput(
                 "Carlos editado",
                 UserTestUtils.editedEmail
         );
@@ -140,7 +142,7 @@ public class UserApplicationTest {
         Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
-        var input = new UpdateUser.UpdateUserInput(
+        var input = new UpdateUserInput(
                 "Carlos editado",
                 UserTestUtils.validEmail
         );
