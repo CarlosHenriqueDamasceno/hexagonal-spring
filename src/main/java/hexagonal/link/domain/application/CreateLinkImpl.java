@@ -1,4 +1,4 @@
-package hexagonal.link.application.useCases;
+package hexagonal.link.domain.application;
 
 import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;

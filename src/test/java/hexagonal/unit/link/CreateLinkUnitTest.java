@@ -1,6 +1,6 @@
 package hexagonal.unit.link;
 
-import hexagonal.link.application.useCases.CreateLinkImpl;
+import hexagonal.link.domain.application.CreateLinkImpl;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.CreateLink;
 import org.junit.jupiter.api.Test;
