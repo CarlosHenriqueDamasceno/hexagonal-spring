@@ -51,7 +51,7 @@ public class CreateLinkUnitTest {
     }
 
     @Test
-    void shouldCreateALinkWithNonGivenSlugTryingTwoTimes() {
+    void shouldCreateALinkWithNonGivenSlugTryingTwice() {
         Mockito.when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
         Mockito.when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
