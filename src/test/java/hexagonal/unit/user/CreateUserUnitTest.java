@@ -9,13 +9,13 @@ import hexagonal.user.port.dto.UserInput;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateUserUnitTest {
@@ -28,10 +28,10 @@ public class CreateUserUnitTest {
     @Test
     void shouldCreateAnUser() {
 
-        Mockito.when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
+        when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
                 .thenReturn(UserTestUtils.rightPasswordEncrypted);
 
-        Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
+        when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
                 .thenReturn(Optional.empty());
 
         var user = User.buildNonExistentUser(
@@ -41,7 +41,7 @@ public class CreateUserUnitTest {
                 mockEncryptor
         );
 
-        Mockito.when(mockUserRepository.create(user))
+        when(mockUserRepository.create(user))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new UserInput(
@@ -58,7 +58,7 @@ public class CreateUserUnitTest {
     @Test
     void shouldNotCreateUserBecauseInvalidEmail() {
 
-        Mockito.when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
+        when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new UserInput(

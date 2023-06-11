@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface UserRepository {
     Optional<User> create(User user);
 
-    Optional<User> find(Long id);
+    User find(Long id);
 
     void update(User user);
 

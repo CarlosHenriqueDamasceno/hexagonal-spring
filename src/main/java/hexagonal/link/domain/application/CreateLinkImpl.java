@@ -32,7 +32,7 @@ public class CreateLinkImpl implements CreateLink {
         var slugString = link.slug().value();
         if (linkRepository.findBySlug(slugString).isPresent()) {
             if (!retry)
-                throw new BusinessException("The given slug is already taken.");
+                throw new BusinessException("O slug informado já está em uso.");
             link = Link.buildNonExistentLink(link.url());
             validateSlug(link, true);
         }

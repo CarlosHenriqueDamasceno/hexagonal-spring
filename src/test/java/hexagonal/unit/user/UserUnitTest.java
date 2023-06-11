@@ -6,11 +6,11 @@ import hexagonal.user.port.EncryptionServicePort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserUnitTest {
@@ -21,7 +21,7 @@ public class UserUnitTest {
     @Test
     void shouldInstantiateANewUser() {
 
-        Mockito.when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
+        when(mockEncryptor.encrypt(UserTestUtils.rightPassword))
                 .thenReturn(UserTestUtils.rightPasswordEncrypted); // encrypted with sha1
 
         User user = User.buildNonExistentUser(

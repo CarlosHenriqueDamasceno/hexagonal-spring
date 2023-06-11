@@ -1,6 +1,7 @@
 package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.application.DeleteUser;
 
@@ -13,8 +14,11 @@ public class DeleteUserImpl implements DeleteUser {
 
     @Override
     public void execute(Long id) {
-        if (userRepository.find(id).isEmpty())
-            throw new BusinessException("Usuário não encontrado.");
-        userRepository.delete(id);
+        try {
+            userRepository.find(id);
+            userRepository.delete(id);
+        } catch (RecordNotFoundException exception) {
+            throw new BusinessException("Usuário não encontrado com o id: " + id + ".");
+        }
     }
 }

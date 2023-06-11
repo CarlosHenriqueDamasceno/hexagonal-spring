@@ -3,6 +3,7 @@ package hexagonal.unit.link;
 import hexagonal.link.domain.application.CreateLinkImpl;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.CreateLink;
+import hexagonal.shared.exceptions.BusinessException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -64,5 +66,24 @@ public class CreateLinkUnitTest {
         var newLink = createLink.execute(input);
         assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
         verify(mockLinkRepository, times(2)).findBySlug(anyString());
+    }
+
+    @Test
+    void shouldNotCreateALinkWithAlreadyTakenSlug() {
+        Mockito.when(mockLinkRepository.findBySlug(anyString()))
+                .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
+        var input = new CreateLink.LinkInput(
+                LinkUnitTestUtils.validUrl,
+                "asdas23"
+        );
+        var createLink = new CreateLinkImpl(mockLinkRepository);
+        var exception = assertThrows(BusinessException.class, () -> {
+                    createLink.execute(input);
+                }
+        );
+        assertEquals(
+                LinkUnitTestUtils.invalidSlugErrorMessage,
+                exception.getMessage()
+        );
     }
 }

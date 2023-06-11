@@ -15,10 +15,9 @@ public class FindLinkByIdImpl implements FindLinkById {
 
     public LinkOutput execute(long id) {
         try {
-
             return LinkOutput.fromEntity(linkRepository.findById(id));
         } catch (RecordNotFoundException exception) {
-            throw new BusinessException("Link not found with id: " + id);
+            throw new BusinessException("Link not found with id: " + id + ".");
         }
     }
 }

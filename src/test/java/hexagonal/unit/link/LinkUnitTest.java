@@ -25,7 +25,6 @@ public class LinkUnitTest {
 
     @Test
     void shouldNotInstantiateANewLinkWithNullGivenSlug() {
-
         var exception = assertThrows(BusinessException.class, () -> {
                     Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, null);
                 }
@@ -35,7 +34,6 @@ public class LinkUnitTest {
 
     @Test
     void shouldNotInstantiateANewLinkWithNullInvalidSizeSlug() {
-
         var exception = assertThrows(BusinessException.class, () -> {
                     Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.invalidSlug);
                 }

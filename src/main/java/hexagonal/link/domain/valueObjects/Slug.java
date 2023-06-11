@@ -13,9 +13,9 @@ public final class Slug {
 
     public Slug(String value) {
         if (value == null)
-            throw new BusinessException("The slug can not be null");
+            throw new BusinessException("O slug não pode ser nulo.");
         if (value.length() < 7 || value.length() > 9)
-            throw new BusinessException("The slug length has to be between " + minlength + " and " + maxlength);
+            throw new BusinessException("O slug deve ter entre" + minlength + " e " + maxlength + " caracteres.");
         this.value = value;
     }
 

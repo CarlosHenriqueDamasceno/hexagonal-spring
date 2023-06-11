@@ -1,6 +1,7 @@
 package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.domain.User;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.application.UpdateUser;
@@ -16,21 +17,21 @@ public class UpdateUserImpl implements UpdateUser {
 
     @Override
     public UserOutput execute(Long id, UpdateUserInput data) {
-        var possibleUser = repo.find(id);
-        if (possibleUser.isEmpty())
-            throw new BusinessException("Usuário não encontrado.");
-        if (repo.findByEmail(data.email()).isPresent())
-            throw new BusinessException("O email enviado já está em uso por outro usuário.");
 
-        var user = possibleUser.get();
-
-        user = User.buildExistentUser(
-                user.id(),
-                data.name(),
-                data.email(),
-                user.password().value()
-        );
-        repo.update(user);
-        return UserOutput.fromUser(user);
+        try {
+            var user = repo.find(id);
+            if (repo.findByEmail(data.email()).isPresent())
+                throw new BusinessException("O email enviado já está em uso por outro usuário.");
+            user = User.buildExistentUser(
+                    user.id(),
+                    data.name(),
+                    data.email(),
+                    user.password().value()
+            );
+            repo.update(user);
+            return UserOutput.fromUser(user);
+        } catch (RecordNotFoundException exception) {
+            throw new BusinessException("Usuário não encontrado com o id: " + id + ".");
+        }
     }
 }
