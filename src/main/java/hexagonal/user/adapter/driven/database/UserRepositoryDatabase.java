@@ -2,20 +2,27 @@ package hexagonal.user.adapter.driven.database;
 
 import hexagonal.user.domain.User;
 import hexagonal.user.port.UserRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public class UserRepositoryDatabase extends JpaRepository<UserModel, Long> implements UserRepository {
+public class UserRepositoryDatabase implements UserRepository {
+
+    private final UserJpaRepository jpaRepository;
+
+    public UserRepositoryDatabase(UserJpaRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
+    }
 
     @Override
     public Optional<User> create(User user) {
-        return Optional.empty();
+        UserModel userModel = UserModel.fromEntity(user);
+        jpaRepository.save(userModel);
+        return Optional.of(userModel.toEntity());
     }
 
     @Override
     public User find(Long id) {
-        return null;
+        return jpaRepository.findById(id).map(e -> e.toEntity());
     }
 
     @Override
