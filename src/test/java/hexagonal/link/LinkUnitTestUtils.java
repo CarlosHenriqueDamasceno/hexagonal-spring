@@ -1,4 +1,4 @@
-package hexagonal.unit.link;
+package hexagonal.link;
 
 import hexagonal.link.domain.Link;
 import hexagonal.link.domain.valueObjects.Slug;

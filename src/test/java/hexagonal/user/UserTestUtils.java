@@ -1,4 +1,4 @@
-package hexagonal.unit.user;
+package hexagonal.user;
 
 import hexagonal.user.domain.User;
 

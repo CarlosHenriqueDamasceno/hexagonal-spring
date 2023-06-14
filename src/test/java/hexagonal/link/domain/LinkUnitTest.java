@@ -1,6 +1,6 @@
-package hexagonal.unit.link;
+package hexagonal.link.domain;
 
-import hexagonal.link.domain.Link;
+import hexagonal.link.LinkUnitTestUtils;
 import hexagonal.shared.exceptions.BusinessException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

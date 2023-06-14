@@ -1,8 +1,8 @@
-package hexagonal.unit.user;
+package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.shared.exceptions.RecordNotFoundException;
-import hexagonal.user.domain.application.DeleteUserImpl;
+import hexagonal.user.UserTestUtils;
 import hexagonal.user.port.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

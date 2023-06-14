@@ -1,8 +1,8 @@
-package hexagonal.unit.user;
+package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.user.UserTestUtils;
 import hexagonal.user.domain.User;
-import hexagonal.user.domain.application.CreateUserImpl;
 import hexagonal.user.port.EncryptionServicePort;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.dto.UserInput;

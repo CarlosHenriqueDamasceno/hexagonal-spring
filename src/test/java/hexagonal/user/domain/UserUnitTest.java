@@ -1,7 +1,7 @@
-package hexagonal.unit.user;
+package hexagonal.user.domain;
 
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.user.domain.User;
+import hexagonal.user.UserTestUtils;
 import hexagonal.user.port.EncryptionServicePort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

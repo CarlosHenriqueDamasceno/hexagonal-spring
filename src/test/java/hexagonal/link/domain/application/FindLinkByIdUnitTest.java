@@ -1,6 +1,6 @@
-package hexagonal.unit.link;
+package hexagonal.link.domain.application;
 
-import hexagonal.link.domain.application.FindLinkByIdImpl;
+import hexagonal.link.LinkUnitTestUtils;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.shared.exceptions.RecordNotFoundException;

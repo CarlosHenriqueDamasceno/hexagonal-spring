@@ -1,12 +1,12 @@
-package hexagonal.unit.link;
+package hexagonal.link.domain.application;
 
+import hexagonal.link.LinkUnitTestUtils;
 import hexagonal.link.domain.Link;
-import hexagonal.link.domain.application.GetAllLinksImpl;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.dto.GetAllOutput;
 import hexagonal.link.port.dto.PaginationInput;
 import hexagonal.shared.port.application.AuthenticationService;
-import hexagonal.unit.user.UserTestUtils;
+import hexagonal.user.UserTestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
