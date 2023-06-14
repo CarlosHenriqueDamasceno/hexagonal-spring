@@ -9,24 +9,26 @@ public class Link {
     private final String url;
     private final Slug slug;
     private final Long userId;
+    private Long accesses;
 
-    private Link(Long id, String url, Slug slug, Long userId) {
+    private Link(Long id, String url, Slug slug, Long userId, Long accesses) {
         this.id = id;
         this.url = url;
         this.slug = slug;
         this.userId = userId;
+        this.accesses = accesses;
     }
 
     public static Link buildNonExistentLink(String url, String slug, Long userId) {
-        return new Link(null, url, new Slug(slug), userId);
+        return new Link(null, url, new Slug(slug), userId, 0L);
     }
 
     public static Link buildNonExistentLink(String url, Long userId) {
-        return new Link(null, url, new Slug(), userId);
+        return new Link(null, url, new Slug(), userId, 0L);
     }
 
-    public static Link buildExistentLink(Long id, String url, String slug, Long userId) {
-        return new Link(id, url, new Slug(slug), userId);
+    public static Link buildExistentLink(Long id, String url, String slug, Long userId, Long accesses) {
+        return new Link(id, url, new Slug(slug), userId, accesses);
     }
 
     public Long id() {
@@ -43,6 +45,14 @@ public class Link {
 
     public Long userId() {
         return userId;
+    }
+
+    public Long accesses() {
+        return accesses;
+    }
+
+    public void addAccess() {
+        this.accesses++;
     }
 
     @Override

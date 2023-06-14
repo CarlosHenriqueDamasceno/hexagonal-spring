@@ -1,10 +1,11 @@
 package hexagonal.unit.link;
 
-import hexagonal.link.domain.application.FindLinkBySlugImpl;
+import hexagonal.link.domain.application.AccessLinkImpl;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.shared.exceptions.BusinessException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,27 +16,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FindLinkBySlugUnitTest {
+public class AccessLinkUnitTest {
 
     @Mock
     LinkRepository mockLinkRepository;
 
+    @InjectMocks
+    AccessLinkImpl findLinkBySlug;
+
     @Test
-    void shouldFindLinkBySlug() {
+    void shouldFindLinkBySlugAndIncreaseTheAccessCount() {
         when(mockLinkRepository.findBySlug(LinkUnitTestUtils.existentLink.slug().value()))
                 .thenReturn(Optional.of(LinkUnitTestUtils.existentLink));
-        var findLink = new FindLinkBySlugImpl(mockLinkRepository);
-        var foundLink = findLink.execute(LinkUnitTestUtils.existentLink.slug().value());
+        var foundLink = findLinkBySlug.execute(LinkUnitTestUtils.existentLink.slug().value());
         assertEquals(LinkUnitTestUtils.existentLink.id(), foundLink.id());
+        assertEquals(1, foundLink.accesses());
     }
 
     @Test
     void shouldNotFindALinkBySlug() {
         when(mockLinkRepository.findBySlug(LinkUnitTestUtils.existentLink.slug().value()))
                 .thenReturn(Optional.empty());
-        var findLink = new FindLinkBySlugImpl(mockLinkRepository);
         var exception = assertThrows(BusinessException.class, () -> {
-                    findLink.execute(LinkUnitTestUtils.existentLink.slug().value());
+                    findLinkBySlug.execute(LinkUnitTestUtils.existentLink.slug().value());
                 }
         );
         assertEquals(
