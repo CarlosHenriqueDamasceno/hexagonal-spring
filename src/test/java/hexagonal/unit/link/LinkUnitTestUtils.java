@@ -3,6 +3,8 @@ package hexagonal.unit.link;
 import hexagonal.link.domain.Link;
 import hexagonal.link.domain.valueObjects.Slug;
 
+import java.util.List;
+
 public class LinkUnitTestUtils {
 
     public static final String validUrl = "https://www.google.com.br";
@@ -17,4 +19,9 @@ public class LinkUnitTestUtils {
     public static final String linkNotFoundErrorMessage = "Link not found with id: " + existentLink.id() + ".";
     public static final String invalidSlugErrorMessage = "O slug informado já está em uso.";
     public static final String linkNotFoundWithSlugErrorMessage = "Não foi encontrado um link com o slug fornecido.";
+    public static List<Link> listOfLinks = List.of(
+            Link.buildExistentLink(1L, validUrl, validSlug),
+            Link.buildExistentLink(1L, validUrl, "a1da3sw"),
+            Link.buildExistentLink(1L, validUrl, "23ss343")
+    );
 }
