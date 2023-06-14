@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface LinkRepository {
 
-    GetAllOutput<Link> getAll(PaginationInput pagination);
+    GetAllOutput<Link> getAll(PaginationInput pagination, Long userId);
 
     Link findById(long id);
 

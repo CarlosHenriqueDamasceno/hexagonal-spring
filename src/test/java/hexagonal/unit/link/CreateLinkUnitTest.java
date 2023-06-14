@@ -4,10 +4,11 @@ import hexagonal.link.domain.application.CreateLinkImpl;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.CreateLink;
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.port.application.AuthenticationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
@@ -22,47 +23,53 @@ public class CreateLinkUnitTest {
     @Mock
     LinkRepository mockLinkRepository;
 
+    @Mock
+    AuthenticationService authenticationService;
+
+    @InjectMocks
+    CreateLinkImpl createLink;
+
     @Test
     void shouldCreateALink() {
-        Mockito.when(mockLinkRepository.findBySlug(LinkUnitTestUtils.validSlug))
+        when(mockLinkRepository.findBySlug(LinkUnitTestUtils.validSlug))
                 .thenReturn(Optional.empty());
-        Mockito.when(mockLinkRepository.create(LinkUnitTestUtils.nonExistentLink))
+        when(mockLinkRepository.create(LinkUnitTestUtils.nonExistentLink))
                 .thenReturn(LinkUnitTestUtils.existentLink);
+        when(authenticationService.getCurrentUserId()).thenReturn(1L);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,
                 LinkUnitTestUtils.validSlug
         );
-        var createLink = new CreateLinkImpl(mockLinkRepository);
         var newLink = createLink.execute(input);
         assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
     }
 
     @Test
     void shouldCreateALinkWithNonGivenSlug() {
-        Mockito.when(mockLinkRepository.findBySlug(anyString()))
+        when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.empty());
-        Mockito.when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
+        when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
+        when(authenticationService.getCurrentUserId()).thenReturn(1L);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,
                 null
         );
-        var createLink = new CreateLinkImpl(mockLinkRepository);
         var newLink = createLink.execute(input);
         assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
     }
 
     @Test
     void shouldCreateALinkWithNonGivenSlugTryingTwice() {
-        Mockito.when(mockLinkRepository.findBySlug(anyString()))
+        when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
-        Mockito.when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
+        when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
+        when(authenticationService.getCurrentUserId()).thenReturn(1L);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,
                 null
         );
-        var createLink = new CreateLinkImpl(mockLinkRepository);
         var newLink = createLink.execute(input);
         assertEquals(LinkUnitTestUtils.existentLink.id(), newLink.id());
         verify(mockLinkRepository, times(2)).findBySlug(anyString());
@@ -70,13 +77,13 @@ public class CreateLinkUnitTest {
 
     @Test
     void shouldNotCreateALinkWithAlreadyTakenSlug() {
-        Mockito.when(mockLinkRepository.findBySlug(anyString()))
+        when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
+        when(authenticationService.getCurrentUserId()).thenReturn(1L);
         var input = new CreateLink.LinkInput(
                 LinkUnitTestUtils.validUrl,
                 "asdas23"
         );
-        var createLink = new CreateLinkImpl(mockLinkRepository);
         var exception = assertThrows(BusinessException.class, () -> {
                     createLink.execute(input);
                 }

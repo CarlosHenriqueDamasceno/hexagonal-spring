@@ -8,23 +8,25 @@ public class Link {
     private final Long id;
     private final String url;
     private final Slug slug;
+    private final Long userId;
 
-    private Link(Long id, String url, Slug slug) {
+    private Link(Long id, String url, Slug slug, Long userId) {
         this.id = id;
         this.url = url;
         this.slug = slug;
+        this.userId = userId;
     }
 
-    public static Link buildNonExistentLink(String url, String slug) {
-        return new Link(null, url, new Slug(slug));
+    public static Link buildNonExistentLink(String url, String slug, Long userId) {
+        return new Link(null, url, new Slug(slug), userId);
     }
 
-    public static Link buildNonExistentLink(String url) {
-        return new Link(null, url, new Slug());
+    public static Link buildNonExistentLink(String url, Long userId) {
+        return new Link(null, url, new Slug(), userId);
     }
 
-    public static Link buildExistentLink(Long id, String url, String slug) {
-        return new Link(id, url, new Slug(slug));
+    public static Link buildExistentLink(Long id, String url, String slug, Long userId) {
+        return new Link(id, url, new Slug(slug), userId);
     }
 
     public Long id() {
@@ -39,6 +41,10 @@ public class Link {
         return slug;
     }
 
+    public Long userId() {
+        return userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,11 +53,11 @@ public class Link {
         return Objects.equals(id, link.id) && Objects.equals(url, link.url) && Objects.equals(
                 slug,
                 link.slug
-        );
+        ) && Objects.equals(userId, link.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, url, slug);
+        return Objects.hash(id, url, slug, userId);
     }
 }

@@ -13,13 +13,13 @@ public class LinkUnitTest {
 
     @Test
     void shouldInstantiateANewLinkWithGivenSlug() {
-        Link link = Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.validSlug);
+        Link link = Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.validSlug, 1L);
         assertEquals(LinkUnitTestUtils.validSlug, link.slug().value());
     }
 
     @Test
     void shouldInstantiateANewLinkWithGeneratedSlug() {
-        Link link = Link.buildNonExistentLink(LinkUnitTestUtils.validUrl);
+        Link link = Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, 1L);
         assertNotNull(link.slug());
     }
 
@@ -35,7 +35,7 @@ public class LinkUnitTest {
     @Test
     void shouldNotInstantiateANewLinkWithNullInvalidSizeSlug() {
         var exception = assertThrows(BusinessException.class, () -> {
-                    Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.invalidSlug);
+                    Link.buildNonExistentLink(LinkUnitTestUtils.validUrl, LinkUnitTestUtils.invalidSlug, 1L);
                 }
         );
         assertEquals(
