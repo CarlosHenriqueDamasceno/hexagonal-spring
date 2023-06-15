@@ -7,9 +7,9 @@ public class GetAllOutput<T> {
     private final List<T> data;
     private final int pageSize;
     private final int page;
-    private final int totalRecords;
+    private final Long totalRecords;
 
-    public GetAllOutput(List<T> data, int pageSize, int page, int totalRecords) {
+    public GetAllOutput(List<T> data, int pageSize, int page, Long totalRecords) {
         this.data = data;
         this.pageSize = pageSize;
         this.page = page;
@@ -26,6 +26,6 @@ public class GetAllOutput<T> {
 
     public record Pagination(int pageSize,
                              int page,
-                             int totalRecords) {
+                             Long totalRecords) {
     }
 }
