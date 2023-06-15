@@ -1,5 +1,6 @@
 package hexagonal.user.adapter.driven.database;
 
+import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.domain.User;
 import hexagonal.user.port.UserRepository;
 
@@ -22,21 +23,32 @@ public class UserRepositoryDatabase implements UserRepository {
 
     @Override
     public User find(Long id) {
-        return jpaRepository.findById(id).map(e -> e.toEntity());
+        Optional<UserModel> possibleUser = jpaRepository.findById(id);
+        return possibleUser.map(UserModel::toEntity).orElseThrow(RecordNotFoundException::new);
     }
 
     @Override
     public void update(User user) {
-
+        Optional<UserModel> possibleUser = jpaRepository.findById(user.id());
+        if (possibleUser.isEmpty())
+            throw new RecordNotFoundException();
+        UserModel databaseUser = possibleUser.get();
+        databaseUser.setName(user.name());
+        databaseUser.setEmail(user.email().value());
+        jpaRepository.save(databaseUser);
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return Optional.empty();
+        return jpaRepository.findByEmail(email).map(UserModel::toEntity);
     }
 
     @Override
     public void delete(Long id) {
-
+        Optional<UserModel> possibleUser = jpaRepository.findById(id);
+        if (possibleUser.isEmpty())
+            throw new RecordNotFoundException();
+        UserModel databaseUser = possibleUser.get();
+        jpaRepository.delete(databaseUser);
     }
 }
