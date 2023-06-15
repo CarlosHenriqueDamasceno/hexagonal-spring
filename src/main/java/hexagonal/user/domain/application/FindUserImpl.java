@@ -5,7 +5,9 @@ import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.application.FindUser;
 import hexagonal.user.port.dto.UserOutput;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FindUserImpl implements FindUser {
     private final UserRepository repo;
 

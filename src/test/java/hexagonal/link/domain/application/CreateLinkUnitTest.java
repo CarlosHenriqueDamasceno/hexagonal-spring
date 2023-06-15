@@ -4,7 +4,7 @@ import hexagonal.link.LinkUnitTestUtils;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.CreateLink;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.application.AuthenticationService;
+import hexagonal.shared.port.driven.AuthenticationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

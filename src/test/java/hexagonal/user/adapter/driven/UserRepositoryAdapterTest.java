@@ -1,12 +1,12 @@
 package hexagonal.user.adapter.driven;
 
+import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.UserTestUtils;
 import hexagonal.user.adapter.driven.database.UserJpaRepository;
 import hexagonal.user.adapter.driven.database.UserRepositoryDatabase;
 import hexagonal.user.domain.application.CreateUserImpl;
 import hexagonal.user.domain.application.FindUserImpl;
 import hexagonal.user.domain.application.UpdateUserImpl;
-import hexagonal.user.port.EncryptionServicePort;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.dto.UpdateUserInput;
 import hexagonal.user.port.dto.UserInput;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 public class UserRepositoryAdapterTest {
 
     @Mock
-    EncryptionServicePort mockEncryptor;
+    EncryptionService mockEncryptor;
 
     @Autowired
     private UserJpaRepository jpaRepository;

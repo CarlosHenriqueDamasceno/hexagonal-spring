@@ -1,9 +1,9 @@
 package hexagonal.user.domain;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.domain.valueObjects.Email;
 import hexagonal.user.domain.valueObjects.Password;
-import hexagonal.user.port.EncryptionServicePort;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public class User {
             String name,
             String email,
             String nonEncryptedPassword,
-            EncryptionServicePort encryptionServicePort
+            EncryptionService encryptionServicePort
     ) {
         return new User(
                 null,

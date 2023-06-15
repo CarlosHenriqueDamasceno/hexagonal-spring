@@ -1,4 +1,4 @@
-package hexagonal.shared.port.application;
+package hexagonal.shared.port.driven;
 
 public interface AuthenticationService {
     Long getCurrentUserId();

@@ -1,18 +1,20 @@
 package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.domain.User;
-import hexagonal.user.port.EncryptionServicePort;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.application.CreateUser;
 import hexagonal.user.port.dto.UserInput;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateUserImpl implements CreateUser {
 
     private final UserRepository repo;
-    private final EncryptionServicePort encryptionServicePort;
+    private final EncryptionService encryptionServicePort;
 
-    public CreateUserImpl(UserRepository repo, EncryptionServicePort encryptionServicePort) {
+    public CreateUserImpl(UserRepository repo, EncryptionService encryptionServicePort) {
         this.repo = repo;
         this.encryptionServicePort = encryptionServicePort;
     }

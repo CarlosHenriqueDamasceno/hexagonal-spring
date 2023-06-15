@@ -8,9 +8,11 @@ import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.adapter.driven.database.UserJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public class LinkRepositoryDatabase implements LinkRepository {
 
     private final LinkJpaRepository jpaRepository;
@@ -23,10 +25,10 @@ public class LinkRepositoryDatabase implements LinkRepository {
 
     @Override
     public GetAllOutput<Link> getAll(PaginationInput pagination, Long userId) {
-        Page<LinkModel> linkModelsPage = jpaRepository.findAll(PageRequest.of(
+        Page<LinkModel> linkModelsPage = jpaRepository.findAllByUserId(PageRequest.of(
                 pagination.page(),
                 pagination.pageSize()
-        ));
+        ), userId);
         var linksList = linkModelsPage.stream()
                 .map(LinkModel::toEntity)
                 .toList();

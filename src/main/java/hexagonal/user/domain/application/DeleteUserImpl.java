@@ -4,7 +4,9 @@ import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.application.DeleteUser;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeleteUserImpl implements DeleteUser {
     private final UserRepository userRepository;
 

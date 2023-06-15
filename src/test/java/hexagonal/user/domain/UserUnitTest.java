@@ -1,8 +1,8 @@
 package hexagonal.user.domain;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.UserTestUtils;
-import hexagonal.user.port.EncryptionServicePort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class UserUnitTest {
 
     @Mock
-    EncryptionServicePort mockEncryptor;
+    EncryptionService mockEncryptor;
 
     @Test
     void shouldInstantiateANewUser() {

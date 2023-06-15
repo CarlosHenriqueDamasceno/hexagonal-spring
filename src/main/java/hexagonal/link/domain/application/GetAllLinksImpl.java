@@ -5,7 +5,7 @@ import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.GetAllLinks;
 import hexagonal.link.port.dto.GetAllOutput;
 import hexagonal.link.port.dto.PaginationInput;
-import hexagonal.shared.port.application.AuthenticationService;
+import hexagonal.shared.port.driven.AuthenticationService;
 
 public class GetAllLinksImpl implements GetAllLinks {
     private final LinkRepository repository;

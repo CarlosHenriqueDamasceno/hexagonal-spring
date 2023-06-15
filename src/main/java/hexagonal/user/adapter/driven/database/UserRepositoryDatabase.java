@@ -3,9 +3,11 @@ package hexagonal.user.adapter.driven.database;
 import hexagonal.shared.exceptions.RecordNotFoundException;
 import hexagonal.user.domain.User;
 import hexagonal.user.port.UserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public class UserRepositoryDatabase implements UserRepository {
 
     private final UserJpaRepository jpaRepository;

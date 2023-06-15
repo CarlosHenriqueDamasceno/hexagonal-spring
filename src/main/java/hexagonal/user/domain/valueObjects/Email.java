@@ -8,6 +8,8 @@ public final class Email {
     private final String value;
 
     public Email(String email) {
+        if (email == null)
+            throw new BusinessException("O Email deve ser informado.");
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         if (!email.matches(emailRegex)) {
             throw new BusinessException("Email inválido.");

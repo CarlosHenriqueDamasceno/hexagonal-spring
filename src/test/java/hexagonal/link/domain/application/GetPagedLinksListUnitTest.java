@@ -5,7 +5,7 @@ import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.dto.GetAllOutput;
 import hexagonal.link.port.dto.PaginationInput;
-import hexagonal.shared.port.application.AuthenticationService;
+import hexagonal.shared.port.driven.AuthenticationService;
 import hexagonal.user.UserTestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +40,7 @@ public class GetPagedLinksListUnitTest {
                     LinkUnitTestUtils.listOfLinks.stream().limit(input.pageSize()).toList(),
                     input.pageSize(),
                     input.page(),
-                    LinkUnitTestUtils.listOfLinks.size()
+                    (long) LinkUnitTestUtils.listOfLinks.size()
             );
         });
         GetAllOutput<Link> result = getAllLinks.execute(paginationInput);
@@ -64,7 +64,7 @@ public class GetPagedLinksListUnitTest {
                             .toList(),
                     input.pageSize(),
                     input.page(),
-                    LinkUnitTestUtils.listOfLinks.size()
+                    (long) LinkUnitTestUtils.listOfLinks.size()
             );
         });
         GetAllOutput<Link> result = getAllLinks.execute(paginationInput);

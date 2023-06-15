@@ -1,9 +1,9 @@
 package hexagonal.user.domain.application;
 
 import hexagonal.shared.exceptions.BusinessException;
+import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.UserTestUtils;
 import hexagonal.user.domain.User;
-import hexagonal.user.port.EncryptionServicePort;
 import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.dto.UserInput;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class CreateUserUnitTest {
     @Mock
-    EncryptionServicePort mockEncryptor;
+    EncryptionService mockEncryptor;
 
     @Mock
     UserRepository mockUserRepository;

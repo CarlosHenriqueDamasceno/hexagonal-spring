@@ -7,7 +7,9 @@ import hexagonal.user.port.UserRepository;
 import hexagonal.user.port.application.UpdateUser;
 import hexagonal.user.port.dto.UpdateUserInput;
 import hexagonal.user.port.dto.UserOutput;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UpdateUserImpl implements UpdateUser {
     private final UserRepository repo;
 

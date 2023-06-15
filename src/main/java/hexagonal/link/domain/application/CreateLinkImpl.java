@@ -5,7 +5,7 @@ import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.CreateLink;
 import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.application.AuthenticationService;
+import hexagonal.shared.port.driven.AuthenticationService;
 
 public class CreateLinkImpl implements CreateLink {
     private final LinkRepository linkRepository;
