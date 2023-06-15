@@ -1,12 +1,15 @@
 package hexagonal.link.domain.application;
 
+import hexagonal.auth.port.driven.AuthenticationService;
 import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.CreateLink;
+import hexagonal.link.port.dto.LinkInput;
 import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.driven.AuthenticationService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateLinkImpl implements CreateLink {
     private final LinkRepository linkRepository;
     private final AuthenticationService authenticationService;

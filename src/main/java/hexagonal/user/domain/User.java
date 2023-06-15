@@ -1,7 +1,7 @@
 package hexagonal.user.domain;
 
+import hexagonal.auth.port.driven.EncryptionService;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.domain.valueObjects.Email;
 import hexagonal.user.domain.valueObjects.Password;
 

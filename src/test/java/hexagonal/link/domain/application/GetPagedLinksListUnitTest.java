@@ -1,11 +1,11 @@
 package hexagonal.link.domain.application;
 
+import hexagonal.auth.port.driven.AuthenticationService;
 import hexagonal.link.LinkUnitTestUtils;
 import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.dto.GetAllOutput;
 import hexagonal.link.port.dto.PaginationInput;
-import hexagonal.shared.port.driven.AuthenticationService;
 import hexagonal.user.UserTestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

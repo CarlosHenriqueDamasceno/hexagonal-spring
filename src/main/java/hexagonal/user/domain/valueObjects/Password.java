@@ -1,7 +1,7 @@
 package hexagonal.user.domain.valueObjects;
 
+import hexagonal.auth.port.driven.EncryptionService;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.driven.EncryptionService;
 
 public record Password(String value) {
     public static Password generateEncrypted(String password, EncryptionService encriptAdapter)

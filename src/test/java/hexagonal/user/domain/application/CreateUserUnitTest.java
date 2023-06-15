@@ -1,7 +1,7 @@
 package hexagonal.user.domain.application;
 
+import hexagonal.auth.port.driven.EncryptionService;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.driven.EncryptionService;
 import hexagonal.user.UserTestUtils;
 import hexagonal.user.domain.User;
 import hexagonal.user.port.UserRepository;

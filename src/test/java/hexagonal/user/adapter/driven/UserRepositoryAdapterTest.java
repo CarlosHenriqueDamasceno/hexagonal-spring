@@ -1,6 +1,6 @@
 package hexagonal.user.adapter.driven;
 
-import hexagonal.shared.port.driven.EncryptionService;
+import hexagonal.auth.port.driven.EncryptionService;
 import hexagonal.user.UserTestUtils;
 import hexagonal.user.adapter.driven.database.UserJpaRepository;
 import hexagonal.user.adapter.driven.database.UserRepositoryDatabase;

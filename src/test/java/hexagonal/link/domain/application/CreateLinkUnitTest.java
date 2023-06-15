@@ -1,10 +1,10 @@
 package hexagonal.link.domain.application;
 
+import hexagonal.auth.port.driven.AuthenticationService;
 import hexagonal.link.LinkUnitTestUtils;
 import hexagonal.link.port.LinkRepository;
-import hexagonal.link.port.application.CreateLink;
+import hexagonal.link.port.dto.LinkInput;
 import hexagonal.shared.exceptions.BusinessException;
-import hexagonal.shared.port.driven.AuthenticationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,7 +36,7 @@ public class CreateLinkUnitTest {
         when(mockLinkRepository.create(LinkUnitTestUtils.nonExistentLink))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         when(authenticationService.getCurrentUserId()).thenReturn(1L);
-        var input = new CreateLink.LinkInput(
+        var input = new LinkInput(
                 LinkUnitTestUtils.validUrl,
                 LinkUnitTestUtils.validSlug
         );
@@ -51,7 +51,7 @@ public class CreateLinkUnitTest {
         when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         when(authenticationService.getCurrentUserId()).thenReturn(1L);
-        var input = new CreateLink.LinkInput(
+        var input = new LinkInput(
                 LinkUnitTestUtils.validUrl,
                 null
         );
@@ -66,7 +66,7 @@ public class CreateLinkUnitTest {
         when(mockLinkRepository.create(argThat(link -> link.url().equals(LinkUnitTestUtils.validUrl))))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         when(authenticationService.getCurrentUserId()).thenReturn(1L);
-        var input = new CreateLink.LinkInput(
+        var input = new LinkInput(
                 LinkUnitTestUtils.validUrl,
                 null
         );
@@ -80,7 +80,7 @@ public class CreateLinkUnitTest {
         when(mockLinkRepository.findBySlug(anyString()))
                 .thenReturn(Optional.of(LinkUnitTestUtils.existentLink)).thenReturn(Optional.empty());
         when(authenticationService.getCurrentUserId()).thenReturn(1L);
-        var input = new CreateLink.LinkInput(
+        var input = new LinkInput(
                 LinkUnitTestUtils.validUrl,
                 "asdas23"
         );

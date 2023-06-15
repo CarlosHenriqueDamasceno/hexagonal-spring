@@ -1,6 +1,6 @@
-package hexagonal.shared.adapter;
+package hexagonal.auth.adapter.driven;
 
-import hexagonal.shared.port.driven.EncryptionService;
+import hexagonal.auth.port.driven.EncryptionService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

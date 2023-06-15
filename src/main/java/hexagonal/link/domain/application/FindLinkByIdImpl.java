@@ -5,7 +5,9 @@ import hexagonal.link.port.application.FindLinkById;
 import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.shared.exceptions.RecordNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FindLinkByIdImpl implements FindLinkById {
     private final LinkRepository linkRepository;
 
