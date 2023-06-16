@@ -10,11 +10,13 @@ public interface LinkRepository {
 
     GetAllRepositoryOutput<Link> getAll(PaginationInput pagination, Long userId);
 
-    Link findById(long id);
+    Link find(long id);
 
     Optional<Link> findBySlug(String slug);
 
     Link create(Link link);
 
     void updateAccesses(Link link);
+
+    void delete(Long id);
 }

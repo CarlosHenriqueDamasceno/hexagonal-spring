@@ -17,7 +17,6 @@ public class DeleteUserImpl implements DeleteUser {
     @Override
     public void execute(Long id) {
         try {
-            userRepository.find(id);
             userRepository.delete(id);
         } catch (RecordNotFoundException exception) {
             throw new BusinessException("Usuário não encontrado com o id: " + id + ".");

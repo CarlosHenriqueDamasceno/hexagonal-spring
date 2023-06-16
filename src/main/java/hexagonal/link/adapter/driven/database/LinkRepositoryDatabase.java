@@ -39,7 +39,7 @@ public class LinkRepositoryDatabase implements LinkRepository {
     }
 
     @Override
-    public Link findById(long id) {
+    public Link find(long id) {
         Optional<LinkModel> possibleLink = jpaRepository.findById(id);
         return possibleLink.map(LinkModel::toEntity).orElseThrow(RecordNotFoundException::new);
     }
@@ -60,6 +60,15 @@ public class LinkRepositoryDatabase implements LinkRepository {
     public void updateAccesses(Link link) {
         LinkModel linkModel = entityToModel(link);
         jpaRepository.save(linkModel);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Optional<LinkModel> possibleLink = jpaRepository.findById(id);
+        if (possibleLink.isEmpty())
+            throw new RecordNotFoundException();
+        LinkModel databaseLink = possibleLink.get();
+        jpaRepository.delete(databaseLink);
     }
 
     private LinkModel entityToModel(Link link) {

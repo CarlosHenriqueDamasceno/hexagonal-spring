@@ -6,6 +6,7 @@ import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.link.port.dto.PaginationInput;
 import hexagonal.shared.port.dto.GetAllOutput;
+import hexagonal.shared.port.dto.GetAllRepositoryOutput;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,10 +36,8 @@ public class GetPagedLinksListUnitTest {
         when(authenticationService.getCurrentUserId()).thenReturn(1L);
         when(mockLinkRepository.getAll(paginationInput, 1L)).thenAnswer(invocation -> {
             PaginationInput input = invocation.getArgument(0);
-            return new GetAllOutput<>(
+            return new GetAllRepositoryOutput<>(
                     LinkUnitTestUtils.listOfLinks.stream().limit(input.pageSize()).toList(),
-                    input.pageSize(),
-                    input.page(),
                     (long) LinkUnitTestUtils.listOfLinks.size()
             );
         });
@@ -56,14 +55,13 @@ public class GetPagedLinksListUnitTest {
         when(mockLinkRepository.getAll(paginationInput, 1L)).thenAnswer(invocation -> {
             PaginationInput input = invocation.getArgument(0);
             Long userId = invocation.getArgument(1);
-            return new GetAllOutput<>(
+            return new GetAllRepositoryOutput<>(
                     LinkUnitTestUtils.listOfLinks.stream()
                             .filter(e -> e.userId().equals(userId))
                             .limit(input.pageSize())
                             .toList(),
-                    input.pageSize(),
-                    input.page(),
-                    (long) LinkUnitTestUtils.listOfLinks.size()
+                    LinkUnitTestUtils.listOfLinks.stream()
+                            .filter(e -> e.userId().equals(userId)).count()
             );
         });
         GetAllOutput<LinkOutput> result = getAllLinks.execute(paginationInput);

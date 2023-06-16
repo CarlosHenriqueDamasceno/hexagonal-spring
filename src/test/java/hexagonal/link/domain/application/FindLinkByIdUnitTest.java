@@ -20,7 +20,7 @@ public class FindLinkByIdUnitTest {
 
     @Test
     void shouldFindALinkById() {
-        when(mockLinkRepository.findById(LinkUnitTestUtils.existentLink.id()))
+        when(mockLinkRepository.find(LinkUnitTestUtils.existentLink.id()))
                 .thenReturn(LinkUnitTestUtils.existentLink);
         var findLink = new FindLinkByIdImpl(mockLinkRepository);
         var foundLink = findLink.execute(LinkUnitTestUtils.existentLink.id());
@@ -29,7 +29,7 @@ public class FindLinkByIdUnitTest {
 
     @Test
     void shouldNotFindALinkById() {
-        when(mockLinkRepository.findById(LinkUnitTestUtils.existentLink.id()))
+        when(mockLinkRepository.find(LinkUnitTestUtils.existentLink.id()))
                 .thenThrow(new RecordNotFoundException("record not found"));
         var findLink = new FindLinkByIdImpl(mockLinkRepository);
         var exception = assertThrows(BusinessException.class, () -> {

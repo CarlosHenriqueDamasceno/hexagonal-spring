@@ -1,25 +1,25 @@
 package hexagonal.link.domain.application;
 
 import hexagonal.link.port.LinkRepository;
-import hexagonal.link.port.application.FindLinkById;
-import hexagonal.link.port.dto.LinkOutput;
+import hexagonal.link.port.application.DeleteLink;
 import hexagonal.shared.exceptions.BusinessException;
 import hexagonal.shared.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindLinkByIdImpl implements FindLinkById {
+public class DeleteLinkImpl implements DeleteLink {
     private final LinkRepository linkRepository;
 
-    public FindLinkByIdImpl(LinkRepository linkRepository) {
+    public DeleteLinkImpl(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
     }
 
-    public LinkOutput execute(long id) {
+    @Override
+    public void execute(Long id) {
         try {
-            return LinkOutput.fromEntity(linkRepository.find(id));
+            linkRepository.delete(id);
         } catch (RecordNotFoundException exception) {
-            throw new BusinessException("Link not found with id: " + id + ".");
+            throw new BusinessException("Link não encontrado com o id: " + id + ".");
         }
     }
 }
