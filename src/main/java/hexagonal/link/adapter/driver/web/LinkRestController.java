@@ -33,11 +33,11 @@ public class LinkRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid LinkInput data) {
+    public ResponseEntity<LinkOutput> create(@RequestBody @Valid LinkInput data) {
         var result = createLink.execute(data);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(result).toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(result);
     }
 
     @GetMapping
