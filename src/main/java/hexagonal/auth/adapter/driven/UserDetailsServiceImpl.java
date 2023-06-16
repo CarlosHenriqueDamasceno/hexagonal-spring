@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Credenciais inválidas."));
-        return new UserDetailsImpl(user.email().value(), user.password().value());
+        return new UserDetailsImpl(user.id(), user.email().value(), user.password().value());
     }
 }
