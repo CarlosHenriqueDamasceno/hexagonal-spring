@@ -25,4 +25,5 @@ public class LinkUnitTestUtils {
             Link.buildExistentLink(3L, validUrl, "a1da3sw", 1L, 0L),
             Link.buildExistentLink(4L, validUrl, "23ss343", 1L, 0L)
     );
+    public static final long firstUserLinksCount = 3;
 }

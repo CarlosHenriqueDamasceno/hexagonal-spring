@@ -1,4 +1,4 @@
-package hexagonal.link.port.dto;
+package hexagonal.shared.port.dto;
 
 import java.util.List;
 
@@ -27,5 +27,21 @@ public class GetAllOutput<T> {
     public record Pagination(int pageSize,
                              int page,
                              Long totalRecords) {
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public Long getTotalRecords() {
+        return totalRecords;
     }
 }

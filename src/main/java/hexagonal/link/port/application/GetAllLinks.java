@@ -1,9 +1,9 @@
 package hexagonal.link.port.application;
 
-import hexagonal.link.domain.Link;
-import hexagonal.link.port.dto.GetAllOutput;
+import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.link.port.dto.PaginationInput;
+import hexagonal.shared.port.dto.GetAllOutput;
 
 public interface GetAllLinks {
-    GetAllOutput<Link> execute(PaginationInput paginationInput);
+    GetAllOutput<LinkOutput> execute(PaginationInput paginationInput);
 }

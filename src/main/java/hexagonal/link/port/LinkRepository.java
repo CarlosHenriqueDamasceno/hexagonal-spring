@@ -1,18 +1,20 @@
 package hexagonal.link.port;
 
 import hexagonal.link.domain.Link;
-import hexagonal.link.port.dto.GetAllOutput;
 import hexagonal.link.port.dto.PaginationInput;
+import hexagonal.shared.port.dto.GetAllRepositoryOutput;
 
 import java.util.Optional;
 
 public interface LinkRepository {
 
-    GetAllOutput<Link> getAll(PaginationInput pagination, Long userId);
+    GetAllRepositoryOutput<Link> getAll(PaginationInput pagination, Long userId);
 
     Link findById(long id);
 
     Optional<Link> findBySlug(String slug);
 
     Link create(Link link);
+
+    void updateAccesses(Link link);
 }

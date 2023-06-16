@@ -1,11 +1,11 @@
 package hexagonal.link.domain.application;
 
 import hexagonal.auth.port.driven.AuthenticationService;
-import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;
 import hexagonal.link.port.application.GetAllLinks;
-import hexagonal.link.port.dto.GetAllOutput;
+import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.link.port.dto.PaginationInput;
+import hexagonal.shared.port.dto.GetAllOutput;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +19,18 @@ public class GetAllLinksImpl implements GetAllLinks {
     }
 
     @Override
-    public GetAllOutput<Link> execute(PaginationInput paginationInput) {
+    public GetAllOutput<LinkOutput> execute(PaginationInput paginationInput) {
         Long userId = authenticationService.getCurrentUserId();
-        return repository.getAll(paginationInput, userId);
+
+        var data = repository.getAll(paginationInput, userId);
+        return new GetAllOutput<>(
+                data.records()
+                        .stream()
+                        .map(LinkOutput::fromEntity)
+                        .toList(),
+                paginationInput.pageSize(),
+                paginationInput.page(),
+                data.totalRecords()
+        );
     }
 }

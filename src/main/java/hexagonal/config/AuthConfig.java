@@ -36,6 +36,7 @@ public class AuthConfig {
         http.authorizeHttpRequests(requests -> {
                     requests.requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll();
                     requests.requestMatchers(HttpMethod.POST, "/api/v1/users/auth").permitAll();
+                    requests.requestMatchers(HttpMethod.GET, "/**").permitAll();
                     requests.anyRequest().authenticated();
                 }).csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(

@@ -2,11 +2,10 @@ package hexagonal.link.domain.application;
 
 import hexagonal.auth.port.driven.AuthenticationService;
 import hexagonal.link.LinkUnitTestUtils;
-import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;
-import hexagonal.link.port.dto.GetAllOutput;
+import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.link.port.dto.PaginationInput;
-import hexagonal.user.UserTestUtils;
+import hexagonal.shared.port.dto.GetAllOutput;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -43,7 +42,7 @@ public class GetPagedLinksListUnitTest {
                     (long) LinkUnitTestUtils.listOfLinks.size()
             );
         });
-        GetAllOutput<Link> result = getAllLinks.execute(paginationInput);
+        GetAllOutput<LinkOutput> result = getAllLinks.execute(paginationInput);
         assertEquals(page, result.pagination().page());
         assertEquals(pageSize, result.data().size());
     }
@@ -67,11 +66,9 @@ public class GetPagedLinksListUnitTest {
                     (long) LinkUnitTestUtils.listOfLinks.size()
             );
         });
-        GetAllOutput<Link> result = getAllLinks.execute(paginationInput);
+        GetAllOutput<LinkOutput> result = getAllLinks.execute(paginationInput);
         assertEquals(page, result.pagination().page());
         assertEquals(pageSize, result.data().size());
-        result.data().forEach(element -> {
-            assertEquals(element.userId(), UserTestUtils.existentUser.id());
-        });
+        assertEquals(LinkUnitTestUtils.firstUserLinksCount, result.getTotalRecords());
     }
 }

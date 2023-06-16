@@ -24,6 +24,7 @@ public class AccessLinkImpl implements AccessLink {
         }
         Link link = possibleLink.get();
         link.addAccess();
+        linkRepository.updateAccesses(link);
         return LinkOutput.fromEntity(link);
     }
 }

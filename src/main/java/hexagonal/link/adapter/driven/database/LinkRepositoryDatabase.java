@@ -2,9 +2,9 @@ package hexagonal.link.adapter.driven.database;
 
 import hexagonal.link.domain.Link;
 import hexagonal.link.port.LinkRepository;
-import hexagonal.link.port.dto.GetAllOutput;
 import hexagonal.link.port.dto.PaginationInput;
 import hexagonal.shared.exceptions.RecordNotFoundException;
+import hexagonal.shared.port.dto.GetAllRepositoryOutput;
 import hexagonal.user.adapter.driven.database.UserJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ public class LinkRepositoryDatabase implements LinkRepository {
     }
 
     @Override
-    public GetAllOutput<Link> getAll(PaginationInput pagination, Long userId) {
+    public GetAllRepositoryOutput<Link> getAll(PaginationInput pagination, Long userId) {
         Page<LinkModel> linkModelsPage = jpaRepository.findAllByUserId(PageRequest.of(
                 pagination.page(),
                 pagination.pageSize()
@@ -32,10 +32,8 @@ public class LinkRepositoryDatabase implements LinkRepository {
         var linksList = linkModelsPage.stream()
                 .map(LinkModel::toEntity)
                 .toList();
-        return new GetAllOutput<>(
+        return new GetAllRepositoryOutput<>(
                 linksList,
-                linkModelsPage.getSize(),
-                linkModelsPage.getNumber(),
                 (linkModelsPage.getTotalElements())
         );
     }
@@ -56,6 +54,12 @@ public class LinkRepositoryDatabase implements LinkRepository {
         LinkModel linkModel = entityToModel(link);
         jpaRepository.save(linkModel);
         return linkModel.toEntity();
+    }
+
+    @Override
+    public void updateAccesses(Link link) {
+        LinkModel linkModel = entityToModel(link);
+        jpaRepository.save(linkModel);
     }
 
     private LinkModel entityToModel(Link link) {

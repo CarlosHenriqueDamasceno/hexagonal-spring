@@ -1,7 +1,9 @@
 package hexagonal.link.domain;
 
 import hexagonal.link.domain.valueObjects.Slug;
+import hexagonal.shared.exceptions.BusinessException;
 
+import java.net.URI;
 import java.util.Objects;
 
 public class Link {
@@ -12,6 +14,14 @@ public class Link {
     private Long accesses;
 
     private Link(Long id, String url, Slug slug, Long userId, Long accesses) {
+
+        try {
+            URI uri = new URI(url);
+            uri.toURL();
+        } catch (Exception e) {
+            throw new BusinessException("Url inválida.");
+        }
+
         this.id = id;
         this.url = url;
         this.slug = slug;
