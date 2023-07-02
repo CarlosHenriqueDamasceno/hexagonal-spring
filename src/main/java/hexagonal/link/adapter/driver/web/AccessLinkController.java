@@ -14,7 +14,7 @@ public class AccessLinkController {
         this.accessLink = accessLink;
     }
 
-    @GetMapping("/{slug}")
+    @GetMapping("/link/{slug}")
     public void access(@PathVariable String slug, HttpServletResponse httpServletResponse) {
         var link = accessLink.execute(slug);
         httpServletResponse.setHeader("Location", link.url());

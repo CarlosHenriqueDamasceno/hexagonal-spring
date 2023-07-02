@@ -59,12 +59,12 @@ public class UpdateUserUnitTest {
         when(mockUserRepository.find(1L))
                 .thenReturn(UserTestUtils.existentUser);
 
-        when(mockUserRepository.findByEmail(UserTestUtils.validEmail))
+        when(mockUserRepository.findByEmail(UserTestUtils.editedEmail))
                 .thenReturn(Optional.of(UserTestUtils.existentUser));
 
         var input = new UpdateUserInput(
                 "Carlos editado",
-                UserTestUtils.validEmail
+                UserTestUtils.editedEmail
         );
         var updateUser = new UpdateUserImpl(mockUserRepository);
         var exception = assertThrows(BusinessException.class, () -> updateUser.execute(1L, input));
