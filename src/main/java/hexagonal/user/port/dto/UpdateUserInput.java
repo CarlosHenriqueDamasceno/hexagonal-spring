@@ -1,4 +1,12 @@
 package hexagonal.user.port.dto;
 
-public record UpdateUserInput(String name, String email) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record UpdateUserInput(
+        @NotBlank
+        String name,
+        @NotBlank
+        @Email
+        String email) {
 }

@@ -22,8 +22,10 @@ public class UpdateUserImpl implements UpdateUser {
 
         try {
             var user = repo.find(id);
-            if (repo.findByEmail(data.email()).isPresent())
-                throw new BusinessException("O email enviado já está em uso por outro usuário.");
+            if (!user.email().value().equals(data.email())) {
+                if (repo.findByEmail(data.email()).isPresent())
+                    throw new BusinessException("O email enviado já está em uso por outro usuário.");
+            }
             user = User.buildExistentUser(
                     user.id(),
                     data.name(),
