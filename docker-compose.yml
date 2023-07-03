@@ -1,6 +1,11 @@
 version: '3'
 services:
+  jdk:
+    build: ./
+    ports:
+      - '8080:8080'
   database:
+    container_name: database
     image: mysql/mysql-server:8.0
     ports:
       - '3309:3306'

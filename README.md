@@ -5,6 +5,7 @@
 
 <p>The application is a link shortener</p>
 
+<p>Swagger docs: http://localhost:8080/swagger-ui/index.html</p>
 
 <p>Architectural decisions references:</p>
 
