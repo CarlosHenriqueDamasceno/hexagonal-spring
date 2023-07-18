@@ -5,6 +5,9 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,6 +32,12 @@ import java.util.UUID;
 
 @Configuration
 @EnableWebSecurity
+@OpenAPIDefinition(info = @Info(title = "Link shortener", version = "v1"))
+@io.swagger.v3.oas.annotations.security.SecurityScheme(
+        name = "JWT",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer"
+)
 public class AuthConfig {
 
     @Bean
@@ -86,4 +95,5 @@ public class AuthConfig {
     public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwtEncoder(jwkSource);
     }
+
 }

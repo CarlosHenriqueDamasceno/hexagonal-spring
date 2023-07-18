@@ -1,4 +1,10 @@
 package hexagonal.auth.port.dto;
 
-public record AuthInput(String email, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthInput(
+        @NotBlank(message = "O E-mail é obrigatório.")
+        String email,
+        @NotBlank(message = "A senha é obrigatória.")
+        String password) {
 }

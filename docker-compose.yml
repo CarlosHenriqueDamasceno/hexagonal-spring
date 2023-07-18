@@ -4,6 +4,9 @@ services:
     build: ./
     ports:
       - '8080:8080'
+    depends_on:
+      database:
+        condition: service_started
   database:
     container_name: database
     image: mysql/mysql-server:8.0
