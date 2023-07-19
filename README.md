@@ -1,15 +1,15 @@
-### In progress...
+### Em desenvolvimento...
 
-<p>This project is an experiment of java application development with hexagonal architecture (Ports and Adapters) </p>
-<p>The web adapter is implemented using Spring Boot and the database using JPA</p>
+<p>Este projeto é um estudo sobre o desenvolvimento de aplicações Java utilizando a arquitetura Hexagonal (Ports and Adapters).</p>
+<p>O adaptador de interface web foi desenvolvido utilizando o framework Spring Boot para disponibilizar uma API REST, enquanto os adaptadores de persistência em banco de dados utilizam a plataforma JPA.</p>
 
-<p>The chosen use case is a link shortener</p>
+<p>O domínio escolhido foi uma aplicação de encurtador de links.</p>
 
-<p>You can run this project just using: docker compose up -d<p>
+<p>O projeto pode ser executado utilizando o comando: docker compose up -d<p>
 
-<p>Swagger docs: http://localhost:8080/swagger-ui/index.html</p>
+<p>Link para a documentação: http://localhost:8080/swagger-ui/index.html</p>
 
-<p>Architectural decisions references:</p>
+<p>Referências para decisões de arquitetura e design:</p>
 
 https://github.com/rodrigobranas/fullcycle_design_patterns2
 https://github.com/rodrigobranas/hexagonal_architecture_integration_unit_tests

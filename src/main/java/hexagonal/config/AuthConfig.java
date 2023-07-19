@@ -32,7 +32,7 @@ import java.util.UUID;
 
 @Configuration
 @EnableWebSecurity
-@OpenAPIDefinition(info = @Info(title = "Link shortener", version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "Encurtador de links", version = "v1"))
 @io.swagger.v3.oas.annotations.security.SecurityScheme(
         name = "JWT",
         type = SecuritySchemeType.HTTP,
@@ -45,7 +45,9 @@ public class AuthConfig {
         http.authorizeHttpRequests(requests -> {
                     requests.requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll();
                     requests.requestMatchers(HttpMethod.POST, "/api/v1/users/auth").permitAll();
-                    requests.requestMatchers(HttpMethod.GET, "/**").permitAll();
+                    requests.requestMatchers(HttpMethod.GET, "/link/**").permitAll();
+                    requests.requestMatchers("/swagger-ui/**").permitAll();
+                    requests.requestMatchers("/v3/api-docs/**").permitAll();
                     requests.anyRequest().authenticated();
                 }).csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(

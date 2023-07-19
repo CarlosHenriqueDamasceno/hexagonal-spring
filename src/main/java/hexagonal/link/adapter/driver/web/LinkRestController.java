@@ -8,6 +8,7 @@ import hexagonal.link.port.dto.LinkInput;
 import hexagonal.link.port.dto.LinkOutput;
 import hexagonal.link.port.dto.PaginationInput;
 import hexagonal.shared.port.dto.GetAllOutput;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/links")
+@Tag(name = "Links")
 public class LinkRestController {
     private final CreateLink createLink;
     private final FindLinkById findLinkById;

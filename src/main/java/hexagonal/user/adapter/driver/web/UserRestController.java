@@ -7,6 +7,7 @@ import hexagonal.user.port.application.UpdateUser;
 import hexagonal.user.port.dto.UpdateUserInput;
 import hexagonal.user.port.dto.UserInput;
 import hexagonal.user.port.dto.UserOutput;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("api/v1/users")
+@Tag(name = "Users")
 public class UserRestController {
 
     private final CreateUser createUser;
